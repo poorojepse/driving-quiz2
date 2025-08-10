@@ -1,9 +1,9 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #fff;
-  max-width: 600px;
+  max-width: 100%;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   color: #333;
 }
 
@@ -28,7 +28,9 @@ h1 {
 
 .score-display {
   flex: 1;
+  font-size: 0.95em;
   text-align: left;
+  color: #333;
 }
 
 .question-text {

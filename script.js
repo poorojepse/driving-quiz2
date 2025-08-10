@@ -1,5 +1,5 @@
-let score = 0;
-let totalAnswered = 0;
+let correctCount = 0;
+let wrongCount = 0;
 const scoreEl = document.getElementById("score");
 
 const xmlText = document.getElementById("xml-data").textContent;
@@ -45,9 +45,12 @@ function renderQuestion(index) {
     input.addEventListener("change", () => {
       if (answered) return;
       answered = true;
-	  totalAnswered++;
-		if (isCorrect) score++;
-		scoreEl.textContent = `Score: ${score} / ${totalAnswered}`;
+		if (isCorrect) {
+		  correctCount++;
+		} else {
+		  wrongCount++;
+		}
+		scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
 
 
       document.querySelectorAll('input[name="answer"]').forEach(el => el.disabled = true);
