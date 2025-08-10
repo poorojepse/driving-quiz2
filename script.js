@@ -1,6 +1,7 @@
 let correctCount = 0;
 let wrongCount = 0;
 const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("next"); // ✅ Declare once globally
 
 const xmlText = document.getElementById("xml-data").textContent;
 const parser = new DOMParser();
@@ -15,6 +16,8 @@ const answerDisplay = document.getElementById("answer-display");
 
 function renderQuestion(index) {
   const q = questions[index];
+  if (!q) return;
+
   const text = q.getElementsByTagName("text")[0].textContent;
   const choices = Array.from(q.children).filter(el => el.tagName !== "text");
 
@@ -24,6 +27,8 @@ function renderQuestion(index) {
   answerDisplay.textContent = "";
 
   let answered = false;
+
+  nextBtn.disabled = true; // 🔒 Disable Next button at start
 
   choices.forEach((choice, i) => {
     const id = `choice-${i}`;
@@ -45,13 +50,15 @@ function renderQuestion(index) {
     input.addEventListener("change", () => {
       if (answered) return;
       answered = true;
-		if (isCorrect) {
-		  correctCount++;
-		} else {
-		  wrongCount++;
-		}
-		scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
 
+      nextBtn.disabled = false; // ✅ Enable Next button after selection
+
+      if (isCorrect) {
+        correctCount++;
+      } else {
+        wrongCount++;
+      }
+      scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
 
       document.querySelectorAll('input[name="answer"]').forEach(el => el.disabled = true);
       document.querySelectorAll(".choice-wrapper").forEach(div => {
@@ -77,11 +84,11 @@ function renderQuestion(index) {
   });
 }
 
-document.getElementById("next").addEventListener("click", () => {
+nextBtn.addEventListener("click", () => {
   if (currentIndex < questions.length - 1) {
     currentIndex++;
     renderQuestion(currentIndex);
   }
 });
 
-renderQuestion(currentIndex);
+renderQuestion(currentIndex); // ✅ Initial render

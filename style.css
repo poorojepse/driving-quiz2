@@ -115,3 +115,8 @@ h1 {
   margin-top: 20px;
 }
 
+#next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
