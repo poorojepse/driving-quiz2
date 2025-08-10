@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Driving Exam Quiz</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Driving Exam Quiz</h1>
+	<div class="top-bar">
+	  <div class="score-display" id="score">Score: 0 / 0</div>
+	  <div class="question-count" id="counter"></div>
+	</div>
+
+	<div class="question-text" id="question"></div>
+
+	<!-- Use div instead of form -->
+	<div class="answers" id="answers"></div>
+
+	<button class="next-btn" id="next">Next</button>
+	<div class="answer-display" id="answer-display"></div>
+
+
+	<script id="xml-data" type="text/xml">
+	<questions>
+	<question>
+		<text>What traffic violation have you committed if you pick-up passengers on prohibited zones?</text>
+		<a>Discourtesy to motorist</a>
+		<b>Reckless driving</b>
+		<c correct="true">Obstructing the free flow of traffic</c>
+	</question>
+	<question>
+		<text>A driver on a highway shall yield the right of way to:</text>
+		<a correct="true">police, fire department vehicles, and ambulances when such vehicles are on official business</a>
+		<b>public utility vehicles</b>
+		<c>politicians when such vehicles are on official business</c>
+	</question>
+	<question>
+		<text>The vehicle you are driving is stalled on a two-way (opposite direction) highway, you should place the Early Warning Device (EWD):</text>
+		<a>2 meters at the back and front of the stalled vehicle</a>
+		<b>3 meters at the back and front of the stalled vehicle</b>
+		<c correct="true">4 meters at the back and front of the stalled vehicle</c>
+	</question>
+	<question>
+		<text>Children must be held in approved child restraint if they are:</text>
+		<a>7 years old and below</a>
+		<b correct="true">6 years old and below</b>
+		<c>8 years old and below</c>
+	</question>
+	<question>
+		<text>When an oncoming vehicle (car A) crosses the centerline in a straight road you (car B) should be:</text>
+		<a>turn hazard lights to be seen</a>
+		<b>blow your horn so he's alerted</b>
+		<c correct="true">slow down and keep to the right</c>
+	</question>
+	<question>
+		<text>When two vehicles meet on a gradient road where neither cars pass, which of the two must yield?</text>
+		<a correct="true">The vehicle going downhill</a>
+		<b>The vehicle going uphill</b>
+		<c>The vehicle that honks its horn first</c>
+	</question>
+	<question>
+		<text>What is the meaning of a traffic sign that has a triangle with red color?</text>
+		<a correct="true">Warning sign</a>
+		<b>Reminder sign</b>
+		<c>Information sign</c>
+	</question>
+	<question>
+		<text>This traffic sign states directions and distances?</text>
+		<a>Cautions or warning signs</a>
+		<b>Directional sign</b>
+		<c correct="true">Informative signs</c>
+	</question>
+	<question>
+		<text>At an intersection with traffic signals, if you (car A) are not in the proper lane to make a right or left turn you should:</text>
+		<a correct="true">continue ahead and find a u-turn</a>
+		<b>just continue ahead</b>
+		<c>continue to make the turn</c>
+	</question>
+	<question>
+		<text>Driving with a tampered taximeter is punishable by:</text>
+		<a correct="true">a fine of P3,000 and suspension of DL</a>
+		<b>suspension of the operation of the motor vehicle</b>
+		<c>revocation of the driver's license</c>
+	</question>
+	<question>
+		<text>It refers to an act penalizing person under the influence of alcohol, dangerous drugs, and similar substances, and for other purpose.</text>
+		<a correct="true">R. no. 10586</a>
+		<b>R. a. no. 10585</b>
+		<c>R. a. no. 10584</c>
+	</question>
+	<question>
+		<text>Those who are caught under the influence of prohibited drugs or alcohol while driving shall be penalized with:</text>
+		<a correct="true">Both answers are correct</a>
+		<b>suspension of license</b>
+		<c>fines or jail time</c>
+	</question>
+	<question>
+		<text>A driver ______ park or stop at the side of the road within 6 meters of a crosswalk because it reduces visibility of pedestrians to the drivers.</text>
+		<a>is allowed</a>
+		<b>is unsafe</b>
+		<c correct="true">should not</c>
+	</question>
+	<question>
+		<text>Never park or stop at the side of the road with a fire hydrant, you may only park with a distance of at least:</text>
+		<a>3 meters</a>
+		<b>4 meters</b>
+		<c correct="true">5 meters</c>
+	</question>
+	<question>
+		<text>What will happen when your front tire blows out?</text>
+		<a>The back end will sway towards the side of the blowout</a>
+		<b>The back end will sway away from the blowout</b>
+		<c correct="true">The front end will pull towards the side of the blowout</c>
+	</question>
+	<question>
+		<text>A driver caught driving an unregistered motor vehicle will be penalized by:</text>
+		<a>fine of 5,000 Php</a>
+		<b>suspension of his driver's license for one month</b>
+		<c correct="true">a fine of 10,000 Php</c>
+	</question>
+	<question>
+		<text>The hostile and arrogant attitude of a driver towards a person in the authority or passenger in a public utility vehicle is punishable by:</text>
+		<a correct="true">a fine of Php 500 and suspension of driver's license</a>
+		<b>imprisonment of six months</b>
+		<c>suspension of license for one month</c>
+	</question>
+	<question>
+		<text>The driver of the vehicle behind you should always practice “distancia amigo” or the 3-second rule to prevent:</text>
+		<a>illegal overtaking</a>
+		<b correct="true">rear end crashes</b>
+		<c>road skids</c>
+	</question>
+	<question>
+		<text>If the driver is using a motor vehicle in committing a crime and is convicted, his driver’s license shall be:</text>
+		<a correct="true">revokes and will pay a fine</a>
+		<b>confiscated and will pay fine</b>
+		<c>suspended and will pay fine.</c>
+	</question>
+	<question>
+		<text>Single broken line on a two-lane road means:</text>
+		<a>the speed limit is 80kph</a>
+		<b>you cannot overtake</b>
+		<c correct="true">it separates traffic moving in opposite directions</c>
+	</question>
+	<question>
+		<text>The purpose of traffic laws, rules and regulations is to:</text>
+		<a>generate revenues for the government</a>
+		<b correct="true">establish an orderly movement of vehicles and pedestrian traffic and penalties</b>
+		<c>discipline traffic enforcers</c>
+	</question>
+	<question>
+		<text>Passing/overtaking is allowed:</text>
+		<a>on highway with solid yellow lines</a>
+		<b correct="true">on highway with two or more lanes</b>
+		<c>on highway with at least 60kph speed limit</c>
+	</question>
+	<question>
+		<text>What is considered as a parking violation?</text>
+		<a>parking in a one-way street</a>
+		<b>parking without hazard lights on</b>
+		<c correct="true">parking within 5 meters from a signalized intersection</c>
+	</question>
+	<question>
+		<text>R.a. no. 10586 is also known as an Act Penalizing Persons Driving Under the Influence of Alcohol, Dangerous Drugs, and Other Similar Substances.</text>
+		<a correct="true">Anti- drunk and drugged driving act of 2013</a>
+		<b>Anti- drunk and drugged driving act of 2012</b>
+		<c>Anti- drunk and drugged driving act of 2011</c>
+	</question>
+	<question>
+		<text>While driving with maximum speed and you have to stop suddenly, you should:</text>
+		<a>apply your brakes heavily with steady pressure</a>
+		<b>apply your foot and hand brakes gently with steady pressure</b>
+		<c correct="true">apply your brakes gently with steady pressure</c>
+	</question>
+	<question>
+		<text>While driving the hood of your car lifts up blocking your vision. What should you do? Check all that apply.</text>
+		<a correct="true">Look through the gap underneath the hood or out of the side window</a>
+		<b>Brake suddenly so you don't leave the road</b>
+		<c correct="true">Pull to the side of the road and refasten the hood</c>
+		<d>Turn your headlights on and look out of the side window</d>
+	</question>
+	<question>
+		<text>A driver must park within the curb by putting the car in low gear and setting the parking brake for at least:</text>
+		<a>40 centimeters</a>
+		<b>35 centimeters</b>
+		<c correct="true">30 centimeters</c>
+	</question>
+	<question>
+		<text>A driver of a vehicle approaching a yield sign in an intersection shall:</text>
+		<a>go on without yielding to any vehicle in the intersection</a>
+		<b correct="true">slow down and yield the right of way to any vehicle in the intersection</b>
+		<c>maintain speed and stop only when other vehicles blow their horn</c>
+	</question>
+	<question>
+		<text>In order to meet one’s social responsibilities of caring for others on the road, a good driver should:</text>
+		<a>always be mindful of other motorists</a>
+		<b correct="true">always exercise care for pedestrians and other road users around</b>
+		<c>always exercise patience toward other road users</c>
+	</question>
+	<question>
+		<text>When oncoming vehicle (car A) deliberately crosses the centerline to pass another vehicle, you (car B) should be:</text>
+		<a correct="true">alert and be ready to slow down or stop if necessary</a>
+		<b>blow your horn so he's alerted</b>
+		<c>maintain your speed</c>
+	</question>
+	<question>
+		<text>The Road Users Charge Law (R.a. No. 8794) was enacted by the Philippine Congress to serve as basis for.</text>
+		<a>collecting violation fees for motor vehicles</a>
+		<b correct="true">collecting registration fees for motor vehicles</b>
+		<c>collecting tax fees for motor vehicles</c>
+	</question>
+	<question>
+		<text>Are children below 6 years old allowed to sit in the passenger seat beside the driver?</text>
+		<a>Yes</a>
+		<b correct="true">No</b>
+		<c>It depends</c>
+	</question>
+	<question>
+		<text>It refers to the equipment which can be determine the BAC level of a person through testing of his breath.</text>
+		<a>alcohol tester</a>
+		<b>alcohol breather</b>
+		<c correct="true">alcohol breath analyzer</c>
+	</question>
+	<question>
+		<text>To avoid intersection collision, a driver must:</text>
+		<a correct="true">know and practice the rules relating to the right of way and proper procedure in crossing an intersection</a>
+		<b>blow his horn to signal that he's approaching</b>
+		<c>always proceed with caution in an intersection</c>
+	</question>
+	<question>
+		<text>If you are driving in a curb lane which ends ahead, what would you do first in order to merge without interfering with other traffic?</text>
+		<a correct="true">Change lane to the left</a>
+		<b>Change lane to either left or right</b>
+		<c>Change lane to the right</c>
+	</question>
+	<question>
+		<text>What is the meaning of the yellow arrow traffic sign?</text>
+		<a>Giving right or left direction</a>
+		<b>Vehicles are allowed to go right, left or straight</b>
+		<c correct="true">The red arrow sign is about to light up</c>
+	</question>
+	<question>
+		<text>The Temporary Operators Permit (TOP) authorizes the apprehended driver to operate motor vehicle for a period not exceeding:</text>
+		<a>24 hours</a>
+		<b>48 hours</b>
+		<c correct="true">72 hours</c>
+	</question>
+	<question>
+		<text>The mark for a railway crossing:</text>
+		<a>square</a>
+		<b>inverted triangle</b>
+		<c correct="true">crossbuck</c>
+	</question>
+	<question>
+		<text>Before moving your car from a parked position, you should:</text>
+		<a correct="true">check other traffic, signal and pull from curb when it is safe to do so</a>
+		<b>signal and pull from curb</b>
+		<c>sound your horn and pull from curb slowly</c>
+	</question>
+	<question>
+		<text>Green light at an intersection means:</text>
+		<a correct="true">pedestrians are not allowed to cross the pedestrian lanes</a>
+		<b>pedestrians should cross in a hurry</b>
+		<c>pedestrians are allowed to cross</c>
+	</question>
+	<question>
+		<text>The blind spot is the area to your right or left that you do not see in the side view mirror, what will you do before you back up?</text>
+		<a>look at the rearview mirror</a>
+		<b>get out of the vehicle and scout the area behind you first</b>
+		<c correct="true">turn your head to see that the way is clear</c>
+	</question>
+	<question>
+		<text>When driving on mountain roads during daytime, you should:</text>
+		<a>blow your horn every 1 minute</a>
+		<b>blow your horn when you think it's necessary</b>
+		<c correct="true">blow your horn when approaching a blind curve</c>
+	</question>
+	<question>
+		<text>Seatbelts must be worn by children aged:</text>
+		<a>5 years and above</a>
+		<b correct="true">7 years and above</b>
+		<c>6 years and above</c>
+	</question>
+	<question>
+		<text>It refers to any land transportation vehicles propelled by any other power than muscular power.</text>
+		<a>motorbike</a>
+		<b>muscle car</b>
+		<c correct="true">motor vehicle</c>
+	</question>
+	<question>
+		<text>The owner of a privately registered motor vehicle to be utilized for hire in the carriage of cargoes or passengers is penalized by:</text>
+		<a correct="true">a fine of P2,000 and confiscation of vehicle plates</a>
+		<b>a fine of P300</b>
+		<c>confiscation of motor vehicle plates</c>
+	</question>
+	<question>
+		<text>A pre-trip inspection should be completed:</text>
+		<a>before and after operating the motor vehicle</a>
+		<b>after operating the motor vehicle</b>
+		<c correct="true">before operating the motor vehicle</c>
+	</question>
+	<question>
+		<text>Before making a turn, the driver should use the turn signal at what distance?</text>
+		<a correct="true">30 meters</a>
+		<b>20 meters</b>
+		<c>10 meters</c>
+	</question>
+	<question>
+		<text>On long drives, you should be awake and alert. If you are tired or very sleepy, you should:</text>
+		<a>drink coffee</a>
+		<b correct="true">park at the designated bay of the road and take a few minutes` nap</b>
+		<c>drink energy drink</c>
+	</question>
+	<question>
+		<text>Broken yellow line on the road mean:</text>
+		<a>overtaking on the left side is prohibited</a>
+		<b correct="true">you can overtake on the right or left side if there is no danger</b>
+		<c>overtaking on the right side is prohibited</c>
+	</question>
+	<question>
+		<text>A type of field sobriety test that requires the driver to walk heel-to-toe along a straight line for nine (9) steps, turn at the end and return to the point of origin without any difficulty. What is this test called?</text>
+		<a>The Cat-walk Test</a>
+		<b>The Walk of Shame Test</b>
+		<c correct="true">The Walk-and-turn</c>
+	</question>
+	<question>
+		<text>The penalty of driving a motor vehicle while under the influence of alcohol for the first offense:</text>
+		<a>non-professional driver’s license shall be confiscated and suspended for a period of twelve (6) months upon final conviction by a regular court</a>
+		<b correct="true">non-professional driver’s license shall be confiscated and suspended for a period of twelve (12) months upon final conviction by a regular court</b>
+		<c>non-professional driver’s license shall be confiscated and suspended for a period of twelve (24) months upon final conviction by a regular court</c>
+	</question>
+	<question>
+		<text>What is the meaning of a traffic sign that has a triangle with red color?</text>
+		<a correct="true">Warning sign</a>
+		<b>Reminder sign</b>
+		<c>Information sign</c>
+	</question>
+	<question>
+		<text>If a driver passes a blind person, he:</text>
+		<a>should not flash his head lights</a>
+		<b correct="true">should not sound his horn</b>
+		<c>should reduce his speed</c>
+	</question>
+	<question>
+		<text>How close should another car be before you dim your headlights?</text>
+		<a correct="true">150 meter</a>
+		<b>100 meter</b>
+		<c>200 meters</c>
+	</question>
+	<question>
+		<text>What does this sign indicate?.</text>
+		<a correct="true">Stay on the extreme right side of the highway</a>
+		<b>Road widens ahead</b>
+		<c>Winding road</c>
+	</question>
+	<question>
+		<text>Describes the thinking of a defensive driver:</text>
+		<a>always well rested and alert while driving</a>
+		<b>considers driving safely and defensively at all times</b>
+		<c correct="true">considers what other drivers might do and is preparing to do</c>
+	</question>
+	<question>
+		<text>At an intersection with a traffic light, make a left turn only when:</text>
+		<a>the green light is on</a>
+		<b correct="true">the green and left turn lights are on</b>
+		<c>the yellow light is on.</c>
+	</question>
+	<question>
+		<text>The effects of alcohol in driving are the following except:</text>
+		<a correct="true">coordination of body movements and self judgment</a>
+		<b>reduced concentration</b>
+		<c>slow reaction time</c>
+	</question>
+	<question>
+		<text>Some drivers are constantly sounding their horns, especially if they are in a hurry which is an offense. When is such a situation allowed?</text>
+		<a>When it is done only a few times</a>
+		<b correct="true">When it is done as a warning to avoid accident</b>
+		<c>When you're in a hurry</c>
+	</question>
+	<question>
+		<text>It is illegal to park:</text>
+		<a>within 2 meters of a fire hydrant and within 3 meters from the intersection</a>
+		<b correct="true">within 4 meters of a fire hydrant and within 6 meters from the intersection</b>
+		<c>within 5 meters of a fire hydrant and within 5 meters from the intersection</c>
+	</question>
+	<question>
+		<text>DOT (Department Of Transportation) rules and regulations prohibit drivers of public utility vehicles from:</text>
+		<a>overcharging fares and using tampered taximeters</a>
+		<b>cutting-trip or going beyond authorized route</b>
+		<c correct="true">both of the above</c>
+	</question>
+	<question>
+		<text>You are preparing to exit an expressway, when should you start reducing speed?</text>
+		<a>immediately before entering the deceleration lane</a>
+		<b correct="true">immediately upon entering the deceleration lane</b>
+		<c>immediately upon spotting the deceleration lane</c>
+	</question>
+	<question>
+		<text>What is not a good trait of a driver?</text>
+		<a correct="true">Driving recklessly and under the influence of alcohol</a>
+		<b>Driving while listening to music</b>
+		<c>Driving fast on a highway</c>
+	</question>
+	<question>
+		<text>What is the meaning of the yellow traffic light?</text>
+		<a>You can go but slow down</a>
+		<b>Stop</b>
+		<c correct="true">Prepare to stop as the red light is about to light up</c>
+	</question>
+	<question>
+		<text>At an intersection without stop or yield signs, two cars approach from different streets. Which car has the right-of-way?</text>
+		<a>The vehicle on the left</a>
+		<b correct="true">The vehicle already in the intersection</b>
+		<c>The vehicle that slows down first</c>
+	</question>
+	<question>
+		<text>At an intersection with no control device, two cars approach from perpendicular directions. Which driver must yield?</text>
+		<a>The driver going straight</a>
+		<b>The driver who gets there first</b>
+		<c correct="true">The driver turning right</c>
+	</question>
+	<question>
+		<text>When driving downhill on a mountain road always:</text>
+		<a>be always prepared to hit the brakes</a>
+		<b>blow your horn every 1 minute</b>
+		<c correct="true">shift to low gear so the engine braking action can help you control your speed</c>
+	</question>
+	<question>
+		<text>Being passed is normal part of driving and should not be taken as an insult to one’s ability, you should:</text>
+		<a>maintain your speed</a>
+		<b correct="true">slow down and make it easy to stop</b>
+		<c>turn hazard lights to be seen</c>
+	</question>
+	<question>
+		<text>It refers to measure of amount of alcohol in a person’s blood.</text>
+		<a correct="true">blood alcohol concentration (BAC)</a>
+		<b>blood alcohol count (BAC)</b>
+		<c>blood alcohol intake (BAI)</c>
+	</question>
+	<question>
+		<text>Never park or stop at the side of the road with a fire hydrant, you may only park with a distance of at least:</text>
+		<a>3 meters</a>
+		<b>4 meters</b>
+		<c correct="true">5 meters</c>
+	</question>
+	<question>
+		<text>What is the meaning of a traffic sign that has square or rectangle with blue and white color?</text>
+		<a>Warning sign</a>
+		<b correct="true">Information sign</b>
+		<c>Giving direction</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a>One way</a>
+		<b>No left turn</b>
+		<c correct="true">All vehicles no entry</c>
+	</question>
+	<question>
+		<text>What should you do when you see this sign?</text>
+		<a>Stop only if other vehicles are approaching</a>
+		<b>Stop sign 150 meters ahead</b>
+		<c correct="true">Make a full stop at the intersection and proceed when the way is clear</c>
+	</question>
+	<question>
+		<text>The traffic sign that means “yield the right of way” is a:</text>
+		<a>circle</a>
+		<b>pentagon</b>
+		<c correct="true">inverted triangle</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a>Steep gradient</a>
+		<b correct="true">Steep uphill gradient</b>
+		<c>Steep downhill gradient</c>
+	</question>
+	<question>
+		<text>Signs that are round, rectangular with white and blue background are called:</text>
+		<a>warning signs</a>
+		<b correct="true">informative signs</b>
+		<c>regulatory signs</c>
+	</question>
+	<question>
+		<text>When the traffic light is steady green and steady left/right arrow:</text>
+		<a correct="true">vehicles can go straight or vehicles on the right /left can make a left/right turn</a>
+		<b>vehicles can go left or right but not straight</b>
+		<c>vehicles can go straight but not left or right</c>
+	</question>
+	<question>
+		<text>A steady red cross means:</text>
+		<a correct="true">you cannot drive on this lane</a>
+		<b>proceed with caution</b>
+		<c>you can drive on this lane with caution</c>
+	</question>
+	<question>
+		<text>What does this sign indicate?</text>
+		<a correct="true">Road bends, prepare to go right and then left</a>
+		<b>Road close ahead, go right</b>
+		<c>You may travel beyond 30 kph</c>
+	</question>
+	<question>
+		<text>What are white lines on the road for?</text>
+		<a>Sign that you can go left or right</a>
+		<b>Separates traffic going in two directions</b>
+		<c correct="true">Separates traffic going in one direction</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a>Road ends</a>
+		<b>Crossroads</b>
+		<c correct="true">Road goes left or right</c>
+	</question>
+	<question>
+		<text>A traffic signal light that warns you that the red light is about to turn on:</text>
+		<a correct="true">steady yellow light</a>
+		<b>flashing red light</b>
+		<c>steady green light</c>
+	</question>
+	<question>
+		<text>Single broken line on a two-lane road means:</text>
+		<a>the speed limit is 80kph</a>
+		<b>you cannot overtake</b>
+		<c correct="true">it separates traffic moving in opposite directions</c>
+	</question>
+	<question>
+		<text>What is the meaning of the green arrow traffic sign?</text>
+		<a>The vehicle is not allowed to enter the intersection pointed by the arrow</a>
+		<b correct="true">The vehicle is allowed to go left or right</b>
+		<c>Pedestrians can cross</c>
+	</question>
+	<question>
+		<text>The signal warns of a hazard ahead:</text>
+		<a>circle</a>
+		<b correct="true">diamond</b>
+		<c>triangle</c>
+	</question>
+	<question>
+		<text>Broken yellow line on the road means:</text>
+		<a correct="true">overtaking on the left side is allowed</a>
+		<b>overtaking on the right side is allowed</b>
+		<c>overtaking on the left or right side is prohibited</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a>Double dangerous right curve ahead</a>
+		<b>Dangerous right curve ahead</b>
+		<c correct="true">Dangerous double curve ahead</c>
+	</question>
+	<question>
+		<text>What is the meaning of a blinking red traffic light?</text>
+		<a>Go faster</a>
+		<b>Stop at the given line</b>
+		<c correct="true">Stop for a while and go if there is no danger ahead</c>
+	</question>
+	<question>
+		<text>Signs that are triangular in shape and with a red colored border are called:</text>
+		<a>regulatory signs</a>
+		<b>informative signs</b>
+		<c correct="true">caution or warning sign</c>
+	</question>
+	<question>
+		<text>What does this sign indicate?</text>
+		<a correct="true">Hospital zone</a>
+		<b>Intersection</b>
+		<c>Highway</c>
+	</question>
+	<question>
+		<text>This traffic sign warns you that school children may be present in the vicinity:</text>
+		<a>circle</a>
+		<b>triangle</b>
+		<c correct="true">pentagon</c>
+	</question>
+	<question>
+		<text>What is the meaning of a traffic sign that has circle, octagon or reverse triangle with red color?</text>
+		<a>Warning</a>
+		<b>Giving direction</b>
+		<c correct="true">Compulsory</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a correct="true">Animals cannot cross</a>
+		<b>Animal cage</b>
+		<c>Animal crossing</c>
+	</question>
+	<question>
+		<text>What does this sign indicate?</text>
+		<a correct="true">There is a winding road ahead</a>
+		<b>Road widens ahead</b>
+		<c>Barricade ahead, prepare detour</c>
+	</question>
+	<question>
+		<text>What does this sign indicate?</text>
+		<a correct="true">Humps ahead — slow down to keep control</a>
+		<b>Soft shoulder</b>
+		<c>You are approaching a downgrade</c>
+	</question>
+	<question>
+		<text>At an intersection with a traffic light, make a left turn only when:</text>
+		<a>the green light is on</a>
+		<b correct="true">the green and left turn lights are on</b>
+		<c>the yellow light is on</c>
+	</question>
+	<question>
+		<text>Signs that are round, inverted triangle or octagonal with red colored border are called:</text>
+		<a>cautions or warning signs</a>
+		<b correct="true">regulatory signs</b>
+		<c>information sign</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a>Buses cannot enter</a>
+		<b correct="true">Trucks cannot enter</b>
+		<c>Cars cannot enter</c>
+	</question>
+	<question>
+		<text>The road sign "No Entry" is a:</text>
+		<a correct="true">regulatory sign</a>
+		<b>guide sign</b>
+		<c>warning sign</c>
+	</question>
+	<question>
+		<text>Which of the following best describes the picture?</text>
+		<a correct="true">Dangerous curve ahead</a>
+		<b>Dangerous curve on the left</b>
+		<c>Dangerous curve on the right</c>
+	</question>
+	<question>
+		<text>For drivers of trucks, buses, motorcycles and public utility vehicles, a BAC level of more than _____ shall be conclusive proof that said driver is driving under the influence of alcohol.</text>
+		<a>. 20%</a>
+		<b correct="true">. 00%</b>
+		<c>. 30%</c>
+	</question>
+	<question>
+		<text>How many days are given for you to settle the case to get your license back if you get caught?</text>
+		<a correct="true">15 days</a>
+		<b>30 days</b>
+		<c>10 days</c>
+	</question>
+	<question>
+		<text>It refers to an act penalizing person under the influence of alcohol, dangerous drugs, and similar substances, and for other purpose.</text>
+		<a correct="true">R. no. 10586</a>
+		<b>R. a. no. 10585</b>
+		<c>R. a. no. 10584</c>
+	</question>
+	<question>
+		<text>Operating a public utility vehicle equipped with stereo-music is punishable by:</text>
+		<a correct="true">a fine of Php 1,000</a>
+		<b>revocation of the license and registration certificate</b>
+		<c>imprisonment of the driver and operator for six months</c>
+	</question>
+	<question>
+		<text>A driver of a private motor vehicle with a gross vehicle weight not exceeding 4500 kg. a BAC level of ______ or higher shall be conclusive proof that said driver is driving under the influence of alcohol.</text>
+		<a>. 06%</a>
+		<b>. 07%</b>
+		<c correct="true">. 05%</c>
+	</question>
+	<question>
+		<text>You were flagged down due to overspeeding of your motorcycle, however, when you were asked for your driver’s license, you have nothing to show, instead you make an alibi that you left the same at home. What will be your violation?</text>
+		<a>Overspeeding</a>
+		<b correct="true">Overspeeding and driving without license</b>
+		<c>Driving without license</c>
+	</question>
+	<question>
+		<text>A driver caught driving with an expired license is penalized by:</text>
+		<a>a fine of Php 500 and suspension for one month</a>
+		<b>a fine of Php 100</b>
+		<c correct="true">a fine of Php 400</c>
+	</question>
+	<question>
+		<text>It shall mean that the LEO has reasonable ground to believe that the person driving the motor vehicle is under the influence of alcohol, dangerous drugs and/or other similar substances upon personally witnessing a traffic offense committed.</text>
+		<a>improbable cause</a>
+		<b correct="true">probable cause</b>
+		<c>likely cause</c>
+	</question>
+	<question>
+		<text>When a driver of PUV refuses to render service, convey passengers, such violation is penalize with:</text>
+		<a correct="true">fine of ?1, 000</a>
+		<b>fine of ?2, 000</b>
+		<c>fine of ?3, 000</c>
+	</question>
+	<question>
+		<text>A driver found to have been driving a motor vehicle while under the influence of alcohol, dangerous drugs and/or other similar substances, as provided for under section 5 of this Act, shall be penalized if the violation did not result in physical injuries or homicide with:</text>
+		<a>six (6) months imprisonment, and a fine ranging from twenty thousand pesos (?20,00. 00) to eighty thousand pesos (?80,00. 00)</a>
+		<b>twelve (12) months imprisonment, and a fine ranging from twenty thousand pesos (?20,00. 00) to eighty thousand pesos (?80,00. 00)</b>
+		<c correct="true">three (3) months imprisonment, and a fine ranging from twenty thousand pesos (?20,00. 00) to eighty thousand pesos (?80,00. 00)</c>
+	</question>
+	<question>
+		<text>It refers to horizontal or lateral jerking of the driver’s eyes as he or she gazes sideways following a moving object such as pen or the tip of a penlight held by the LEO from a distance of about one (1) foot away from the face of the driver.</text>
+		<a correct="true">the eye test (horizontal gaze nystagmus)</a>
+		<b>the eye test (horizontal gaze optical illusion)</b>
+		<c>the eye test (horizontal gaze astigmatism)</c>
+	</question>
+	<question>
+		<text>What is the maximum penalty for driving under the influence of liquor or prohibited drugs?</text>
+		<a>A fine of ?15,000</a>
+		<b correct="true">Revocation of license</b>
+		<c>A fine of ?10,000</c>
+	</question>
+	<question>
+		<text>Those who are caught under the influence of prohibited drugs or alcohol while driving shall be penalized with:</text>
+		<a correct="true">Both answers are correct</a>
+		<b>suspension of license</b>
+		<c>fines or jail time</c>
+	</question>
+	<question>
+		<text>Driving without license is against the law and is punishable by:</text>
+		<a>Php 1000</a>
+		<b correct="true">Php 1500</b>
+		<c>Php 500 and the vehicle will be impounded up to 10 days</c>
+	</question>
+	<question>
+		<text>The hostile and arrogant attitude of a driver towards a person in the authority or passenger in a public utility vehicle is punishable by:</text>
+		<a correct="true">a fine of Php 500 and suspension of driver's license</a>
+		<b>imprisonment of six months</b>
+		<c>suspension of license for one month</c>
+	</question>
+	<question>
+		<text>It refers to the equipment which can be determine the BAC level of a person through testing of his breath.</text>
+		<a>alcohol tester</a>
+		<b>alcohol breather</b>
+		<c correct="true">alcohol breath analyzer</c>
+	</question>
+	<question>
+		<text>It refers to standardized tests to initially assess and determine intoxication.</text>
+		<a correct="true">field sobriety test</a>
+		<b>field alcohol test</b>
+		<c>field intoxication test</c>
+	</question>
+	<question>
+		<text>If the driver is using a motor vehicle in committing a crime and is convicted, his driver’s license shall be:</text>
+		<a correct="true">revokes and will pay a fine</a>
+		<b>confiscated and will pay fine</b>
+		<c>suspended and will pay fine</c>
+	</question>
+	<question>
+		<text>A privately registered car utilized for hire and carriage of passengers or cargoes is a colorum vehicle and is prohibited by law. Drivers caught operating such vehicle for the first time is penalized by:</text>
+		<a correct="true">a fine of Php 2,000 and suspension of his driver's license for three months</a>
+		<b>cancellation of his driver's license</b>
+		<c>a fine of Php 500</c>
+	</question>
+	<question>
+		<text>The motor vehicle plate and driver's license may be confiscated by any authorized LTO agent when the vehicle being operated is found to be:</text>
+		<a correct="true">unsafe, unsightly, defective and dilapidated</a>
+		<b>painted with color not approved by LTO</b>
+		<c>inefficient</c>
+	</question>
+	<question>
+		<text>A driver caught driving an unregistered motor vehicle will be penalized by:</text>
+		<a>fine of 5,000 Php</a>
+		<b>suspension of his driver's license for one month</b>
+		<c correct="true">a fine of 10,000 Php</c>
+	</question>
+	<question>
+		<text>It refers to the act of operating a motor vehicle while the driver’s BAC level has, after being subjected to an ABA test, reached the level of intoxication as established jointly by the DOH, the NAPOLCOM and the DOTc.</text>
+		<a correct="true">driving under the influence of alcohol</a>
+		<b>reckless driving</b>
+		<c>careless driving</c>
+	</question>
+	<question>
+		<text>It refers to alcoholic beverages classified into beer, wine and distilled spirits, the consumption of which produces intoxication.</text>
+		<a>coffee</a>
+		<b correct="true">alcohol</b>
+		<c>softdrinks</c>
+	</question>
+	<question>
+		<text>It refers to measure of amount of alcohol in a person’s blood.</text>
+		<a correct="true">blood alcohol concentration (BAC)</a>
+		<b>blood alcohol count (BAC)</b>
+		<c>blood alcohol intake (BAI)</c>
+	</question>
+	<question>
+		<text>A type of field sobriety test that requires to stand an either right or left leg with both arms on the side. The driver is instructed to keep the foot raised about six (6) inches off the ground for thirty (30) seconds. What is this test called?</text>
+		<a>The 30-second stand</a>
+		<b correct="true">The one-leg stand</b>
+		<c>The balance test</c>
+	</question>
+	<question>
+		<text>The owner of a privately registered motor vehicle to be utilized for hire in the carriage of cargoes or passengers is penalized by:</text>
+		<a correct="true">a fine of P2,000 and confiscation of vehicle plates</a>
+		<b>a fine of P300</b>
+		<c>confiscation of motor vehicle plates</c>
+	</question>
+	<question>
+		<text>You were flagged down due to noisy muffler of your motorcycle, what will you do?</text>
+		<a>Bribe the traffic enforcer</a>
+		<b correct="true">Reinstall the stock muffler of your motorcycle</b>
+		<c>Pay the violation fee</c>
+	</question>
+	<question>
+		<text>Driving with a tampered taximeter is punishable by:</text>
+		<a correct="true">a fine of P3,000 and suspension of DL</a>
+		<b>suspension of the operation of the motor vehicle</b>
+		<c>revocation of the driver's license</c>
+	</question>
+	<question>
+		<text>You were apprehended because you were engaged in car racing while driving in a super highway, what traffic violation did you commit?</text>
+		<a correct="true">Reckless driving</a>
+		<b>Gambling</b>
+		<c>Overspeeding</c>
+	</question>
+	<question>
+		<text>The license of a driver who has been convicted for at least three times within a 12 month period may be revoked or suspended by the Director for:</text>
+		<a correct="true">period not exceeding two years</a>
+		<b>three years</b>
+		<c>lifetime</c>
+	</question>
+	<question>
+		<text>The penalty of driving a motor vehicle while under the influence of alcohol for the first offense:</text>
+		<a>non-professional driver’s license shall be confiscated and suspended for a period of twelve (6) months upon final conviction by a regular court</a>
+		<b correct="true">non-professional driver’s license shall be confiscated and suspended for a period of twelve (12) months upon final conviction by a regular court</b>
+		<c>non-professional driver’s license shall be confiscated and suspended for a period of twelve (24) months upon final conviction by a regular court</c>
+	</question>
+	<question>
+		<text>Driving with a fake license is prohibited and is punishable by:</text>
+		<a>Not more than 6 months of imprisonment</a>
+		<b>Php 2,00. 00 fine</b>
+		<c correct="true">Php 3,00. 00 fine with 12-month suspension of driver's license</c>
+	</question>
+	<question>
+		<text>On a two-lane road, overtaking is only allowed only at the:</text>
+		<a correct="true">left lane</a>
+		<b>both right and left lanes</b>
+		<c>right lane</c>
+	</question>
+	<question>
+		<text>Keeping one`s distance lessens the risk of accident. One good rule is to leave a car length or:</text>
+		<a>3-second rule</a>
+		<b>4-second rule</b>
+		<c correct="true">2-second rule</c>
+	</question>
+	<question>
+		<text>When an oncoming vehicle (car A) crosses the centerline in making a left turn, a driver (car B) should:</text>
+		<a>increase your speed to beat him to the spot</a>
+		<b>blow your horn to signal that you won't give way</b>
+		<c correct="true">give way and wait for oncoming traffic to clear up</c>
+	</question>
+	<question>
+		<text>At an intersection, if two (2) vehicles arrived at the same time, which vehicle has the right of way?</text>
+		<a>Vehicle on the left</a>
+		<b>First vehicle to arrive</b>
+		<c correct="true">Vehicle on the right</c>
+	</question>
+	<question>
+		<text>Being passed is normal part of driving and should not be taken as an insult to one’s ability, you should:</text>
+		<a>maintain your speed</a>
+		<b correct="true">slow down and make it easy to stop</b>
+		<c>turn hazard lights to be seen</c>
+	</question>
+	<question>
+		<text>Before changing lanes you should make a signal, look at the rear-view and side-view mirrors and:</text>
+		<a correct="true">Have a quick look over your shoulders to watch out for oncoming vehicles</a>
+		<b>sound your horn</b>
+		<c>turn on the headlight</c>
+	</question>
+	<question>
+		<text>When making a right turn you should:</text>
+		<a>stay on the leftmost part of the road then signal your intention to turn right at least 30 meters before you intend to make your turn</a>
+		<b correct="true">stay on the rightmost lane of the road then signal your intention to turn right at least 30 meters before you intend to make your turn</b>
+		<c>maintain your speed and then signal your intention to turn right at least 30 meters before you intend to make your turn</c>
+	</question>
+	<question>
+		<text>When driving slowly on an expressway you should stay on the:</text>
+		<a>middle lane</a>
+		<b correct="true">right lane</b>
+		<c>left lane</c>
+	</question>
+	<question>
+		<text>When riding with a group of motorcycle riders, a staggered formation:</text>
+		<a>is not recommended at all times</a>
+		<b correct="true">is recommended at all times</b>
+		<c>is very unsafe</c>
+	</question>
+	<question>
+		<text>If you are driving in a curb lane which ends ahead, what would you do first in order to merge without interfering with other traffic?</text>
+		<a correct="true">Change lane to the left</a>
+		<b>Change lane to either left or right</b>
+		<c>Change lane to the right</c>
+	</question>
+	<question>
+		<text>Railway crossing are marked with a crossbuck sign and usually with warning lights. These signs and signal mean a driver must stop, slow down and proceed as directed. If full stop is required, stop from the nearest rail at least:</text>
+		<a correct="true">5 meters</a>
+		<b>4 meters</b>
+		<c>3 meters</c>
+	</question>
+	<question>
+		<text>When driving along with bicyclists, you must:</text>
+		<a>be more aware of the road condition</a>
+		<b correct="true">adjust speed and increase your space margin</b>
+		<c>beam your headlight and drive faster</c>
+	</question>
+	<question>
+		<text>The driver of the vehicle behind you should always practice “distancia amigo” or the 3-second rule to prevent:</text>
+		<a>illegal overtaking</a>
+		<b correct="true">rear end crashes</b>
+		<c>road skids</c>
+	</question>
+	<question>
+		<text>You should normally begin a right turn on:</text>
+		<a>the lane nearest to the road center</a>
+		<b correct="true">the lane nearest the right curb</b>
+		<c>the same lane as for a left turn</c>
+	</question>
+	<question>
+		<text>In the interest of safety, every driver is obliged to do more than the law demand. If your doubt exists at an intersection, one must: (Intersection Safety Rule)</text>
+		<a correct="true">yield the right of way</a>
+		<b>stop and turn hazard lights on</b>
+		<c>stop and pull to safety</c>
+	</question>
+	<question>
+		<text>When an oncoming vehicle (car A) is forced to cross the centerline to avoid hitting another vehicle which suddenly pulled out from the lane, just:</text>
+		<a correct="true">be alert and be prepared to slow down and give way</a>
+		<b>turn hazard lights to be seen</b>
+		<c>blow your horn so he's alerted</c>
+	</question>
+	<question>
+		<text>Before entering any intersection where you can see traffic coming from your left and right, you should:</text>
+		<a>increase your speed to get your way</a>
+		<b>decrease speed as you move past the intersection</b>
+		<c correct="true">stop</c>
+	</question>
+	<question>
+		<text>In bad conditions, the 2-second rule should be increased to</text>
+		<a>5 seconds</a>
+		<b>6 seconds</b>
+		<c correct="true">4 seconds</c>
+	</question>
+	<question>
+		<text>Traffic jam can be prevented if you:</text>
+		<a correct="true">keep opposing lanes open</a>
+		<b>drive within speed limit</b>
+		<c>drive faster</c>
+	</question>
+	<question>
+		<text>It is not a safe place to overtake in an/a:</text>
+		<a correct="true">intersection and when approaching a bridge or a curve</a>
+		<b>high speed road</b>
+		<c>two lane road</c>
+	</question>
+	<question>
+		<text>When you intend to turn right or left. Signal your intention at least:</text>
+		<a>15 meters before you intend to make your turn</a>
+		<b correct="true">25 meters before you intend to make your turn</b>
+		<c>10 meters before you intend to make your turn</c>
+	</question>
+	<question>
+		<text>You should give a signal before turning right or left in an incoming intersection at a distance of:</text>
+		<a correct="true">30 m</a>
+		<b>60 m</b>
+		<c>15 m</c>
+	</question>
+	<question>
+		<text>When following behind another car, it is considered a safe rule to allow at least:</text>
+		<a>one car length per 20 mph or 30 kph speed</a>
+		<b>one car length per 30 mph or 40 kph speed</b>
+		<c correct="true">one car length per 10 mph or 20 kph. speed</c>
+	</question>
+	<question>
+		<text>If the driver is turning left, he must: (U-turn / Left Rule)</text>
+		<a>have the right of way</a>
+		<b>do so slowly with caution</b>
+		<c correct="true">yield to approaching cars</c>
+	</question>
+	<question>
+		<text>If another car enters the intersection at the same time you do and it is on your right, you must: (Same Time Rule)</text>
+		<a correct="true">yield the right of way</a>
+		<b>do the right thing</b>
+		<c>have the right of way</c>
+	</question>
+	<question>
+		<text>At an intersection with no control device, two cars approach from perpendicular directions. Which driver must yield?</text>
+		<a>The driver going straight</a>
+		<b>The driver who gets there first</b>
+		<c correct="true">The driver turning right</c>
+	</question>
+	<question>
+		<text>There are two incoming vehicles in an intersection with no traffic sign. Which vehicle has road rights?</text>
+		<a>The first vehicle to slow down</a>
+		<b>The vehicle coming from the left</b>
+		<c correct="true">The first vehicle to arrive</c>
+	</question>
+	<question>
+		<text>The necessary distance in between you and a vehicle you are following should be:</text>
+		<a correct="true">3-second rule</a>
+		<b>6-second rule</b>
+		<c>5-second rule</c>
+	</question>
+	<question>
+		<text>When about to make a left turn, you should give the right-of-way to cars coming from the opposite direction:</text>
+		<a>until at least two cars have passed</a>
+		<b correct="true">which are close enough to be dangerous</b>
+		<c>until five cars have passed</c>
+	</question>
+	<question>
+		<text>A driver must park within the curb by putting the car in low gear and setting the parking brake for at least:</text>
+		<a>40 centimeters</a>
+		<b>35 centimeters</b>
+		<c correct="true">30 centimeters</c>
+	</question>
+	<question>
+		<text>When loading or unloading passengers, we usually stop at the:</text>
+		<a correct="true">right side of the road nearest the sidewalk</a>
+		<b>middle of the road</b>
+		<c>intersection</c>
+	</question>
+	<question>
+		<text>It is illegal to park:</text>
+		<a>within 2 meters of a fire hydrant and within 3 meters from the intersection</a>
+		<b correct="true">within 4 meters of a fire hydrant and within 6 meters from the intersection</b>
+		<c>within 5 meters of a fire hydrant and within 5 meters from the intersection</c>
+	</question>
+	<question>
+		<text>Never park or stop at the side of the road with a fire hydrant, you may only park with a distance of at least:</text>
+		<a>3 meters</a>
+		<b>4 meters</b>
+		<c correct="true">5 meters</c>
+	</question>
+	<question>
+		<text>What should you do when parking uphill and there is a curb?</text>
+		<a>Turn wheels to curb</a>
+		<b correct="true">Turn front wheels away from the curb</b>
+		<c>Make your front wheels parallel curb</c>
+	</question>
+	<question>
+		<text>When are you permitted to Double Park?</text>
+		<a correct="true">Never</a>
+		<b>When the street or road is wide enough</b>
+		<c>When you have no other option</c>
+	</question>
+	<question>
+		<text>What should you do before leaving the parking space?</text>
+		<a>Just go</a>
+		<b>Sound your horn</b>
+		<c correct="true">Look around first</c>
+	</question>
+	<question>
+		<text>A driver may load and unload passengers:</text>
+		<a>before an intersection</a>
+		<b>whenever a passenger signals for a stop</b>
+		<c correct="true">only at designated stops</c>
+	</question>
+	<question>
+		<text>When parking downhill, you should turn your front wheels:</text>
+		<a correct="true">toward the curb of the sidewalk</a>
+		<b>away from the curb</b>
+		<c>any direction will do</c>
+	</question>
+	<question>
+		<text>If you are parking uphill without a curb, turn the wheels towards the:</text>
+		<a correct="true">edge of the street</a>
+		<b>other side of the street</b>
+		<c>middle of the street</c>
+		<d>.</d>
+	</question>
+	<question>
+		<text>A driver must not park or stop at the side of the road with a “STOP SIGN” or a traffic control signal because it reduces visibility for other drivers, especially when it is within:</text>
+		<a>4 meters</a>
+		<b>5 meters</b>
+		<c correct="true">6 meters</c>
+	</question>
+	<question>
+		<text>Parking is considered as a violation when a motor vehicle:</text>
+		<a correct="true">parks at the entrance and exit of hospital and fire stations</a>
+		<b>parks at the entrance and exit of an industrial establishment</b>
+		<c>parks at the entrance and exit of a residential establishment</c>
+	</question>
+	<question>
+		<text>A driver ________ park or stop at the side of the road within 6 meters of a crosswalk because it reduces the visibility of pedestrians to other drivers.</text>
+		<a correct="true">should not</a>
+		<b>is capable</b>
+		<c>is allowed</c>
+	</question>
+	<question>
+		<text>When you are parked at the side of the road at night, you must:</text>
+		<a correct="true">warn others by turning on your 4 way emergency flashers</a>
+		<b>be sure to stay awake and ready to move</b>
+		<c>warn others by turning on your headlights</c>
+	</question>
+	<question>
+		<text>What will happen when your front tire blows out?</text>
+		<a>The back end will sway towards the side of the blowout</a>
+		<b>The back end will sway away from the blowout</b>
+		<c correct="true">The front end will pull towards the side of the blowout</c>
+		<d>The front end will pull to the opposite side of the blowout</d>
+	</question>
+	<question>
+		<text>When a vehicle starts to skid, what should the driver do?</text>
+		<a>Immediately step on the brakes</a>
+		<b correct="true">Hold firmly on to the wheel while slowing down the vehicle</b>
+		<c>Turn the wheels tp the opposite the direction of the skid</c>
+	</question>
+	<question>
+		<text>In case of a breakdown, which of the following should not be done by a driver?</text>
+		<a correct="true">Stay in the car until help comes</a>
+		<b>Ask for help</b>
+		<c>Get out of the car until help comes</c>
+	</question>
+	<question>
+		<text>What will happen when your rear tire blows out?</text>
+		<a>The back end will sway towards the side of the blowout</a>
+		<b correct="true">The back end will sway away from the blowout</b>
+		<c>The front end will pull towards the side of the blowout</c>
+		<d>The front end will pull to the opposite side of the blowout</d>
+	</question>
+	<question>
+		<text>What should you do in case your vehicle breaks down on an expressway? Check all that apply.</text>
+		<a correct="true">Open your trunk and hood</a>
+		<b>Stand on the expressway and flag down passing drivers for help</b>
+		<c correct="true">Call for help using a mobile phone or an expressway phone</c>
+		<d correct="true">Park as far to the right as possible</d>
+		<e correct="true">Put your hazard warning light on</e>
+	</question>
+	<question>
+		<text>When a vehicle is stalled or disabled, the driver must park the vehicle on the shoulder of the road and:</text>
+		<a>switch on the parking light</a>
+		<b>install the early warning device</b>
+		<c correct="true">switch on the parking light and install the Early Warning Device to the front and rear of the motor vehicle</c>
+	</question>
+	<question>
+		<text>The vehicle you are driving is stalled on a two-way (opposite direction) highway, you should place the Early Warning Device (EWD):</text>
+		<a>2 meters at the back and front of the stalled vehicle</a>
+		<b>3 meters at the back and front of the stalled vehicle</b>
+		<c correct="true">4 meters at the back and front of the stalled vehicle</c>
+	</question>
+	<question>
+		<text>While driving the hood of your car lifts up blocking your vision. What should you do? Check all that apply.</text>
+		<a correct="true">Look through the gap underneath the hood or out of the side window</a>
+		<b>Brake suddenly so you don't leave the road</b>
+		<c correct="true">Pull to the side of the road and refasten the hood</c>
+		<d>Turn your headlights on and look out of the side window</d>
+	</question>
+	<question>
+		<text>If you are the first to arrive at the scene of an accident, which of the following should you do:</text>
+		<a>mind your own business</a>
+		<b correct="true">offer all reasonable assistance</b>
+		<c>move past the accident scene to avoid traffic build up</c>
+	</question>
+	<question>
+		<text>What should you do when you are driving at night?</text>
+		<a correct="true">Drive within visibility range of your headlight so you can stop in an emergency</a>
+		<b>Drive quicker and always be prepared to step on the brakes</b>
+		<c>Drive fast so you can get to your destination quickly</c>
+	</question>
+	<question>
+		<text>Some drivers are constantly sounding their horns, especially if they are in a hurry which is an offense. When is such a situation allowed?</text>
+		<a>When it is done only a few times</a>
+		<b correct="true">When it is done as a warning to avoid accident</b>
+		<c>When you're in a hurry</c>
+	</question>
+	<question>
+		<text>When planning to overtake a slower vehicle in front of you at night, you should:</text>
+		<a>bow your horn so he gets alerted</a>
+		<b correct="true">flick your dimmer, switch two or three times to signify your intention to the driver of the vehicle that you intend to overtake</b>
+		<c>put hazard lights on so he knows you're about to overtake</c>
+	</question>
+	<question>
+		<text>Road accidents can be avoided and minimized if the driver:</text>
+		<a correct="true">don’t disregard traffic signs installed in particular places</a>
+		<b>drinks coffee before hitting the road</b>
+		<c>drives slowly and carefully</c>
+	</question>
+	<question>
+		<text>To execute a safe turn, a motorcycle rider should always:</text>
+		<a correct="true">lean the motorcycle in the direction of the curve or turn</a>
+		<b>be quick and alert in executing the turn</b>
+		<c>lean the motorcycle in the other direction of the curve or turn</c>
+	</question>
+	<question>
+		<text>Describes the thinking of a defensive driver:</text>
+		<a>always well rested and alert while driving</a>
+		<b>considers driving safely and defensively at all times</b>
+		<c correct="true">considers what other drivers might do and is preparing to do</c>
+	</question>
+	<question>
+		<text>Driving in heavy rains can be extremely dangerous because visibility is limited. What should you do?</text>
+		<a correct="true">When you cannot see more than 20 meters in front of you, turn on your hazard lights/headlights and look for a safe place to park</a>
+		<b>Decrease your speed so you are safer</b>
+		<c>Drive as fast as you can so you can get to safely as soon as possible</c>
+	</question>
+	<question>
+		<text>If a driver passes a blind person, he:</text>
+		<a>should not flash his head lights</a>
+		<b correct="true">should not sound his horn</b>
+		<c>should reduce his speed</c>
+	</question>
+	<question>
+		<text>You are preparing to exit an expressway, when should you start reducing speed?</text>
+		<a>immediately before entering the deceleration lane</a>
+		<b correct="true">immediately upon entering the deceleration lane</b>
+		<c>immediately upon spotting the deceleration lane</c>
+	</question>
+	<question>
+		<text>While driving with maximum speed and you have to stop suddenly, you should:</text>
+		<a>apply your brakes heavily with steady pressure</a>
+		<b>apply your foot and hand brakes gently with steady pressure</b>
+		<c correct="true">apply your brakes gently with steady pressure</c>
+	</question>
+	<question>
+		<text>You (car B) are driving on a two (2) lane road. A vehicle (car A) coming in the opposite direction decides to overtake. Judging by his speed and distance from you he will not make it and he is on the head on collision course with you, what will you do?</text>
+		<a>Maintain your speed because you have the right of way</a>
+		<b correct="true">Reduce your speed right away and pull over to the right shoulder of the road</b>
+		<c>Increase your speed to discourage him</c>
+	</question>
+	<question>
+		<text>When driving on mountain roads during daytime, you should:</text>
+		<a>blow your horn every 1 minute</a>
+		<b>blow your horn when you think it's necessary</b>
+		<c correct="true">blow your horn when approaching a blind curve</c>
+	</question>
+	<question>
+		<text>The headlights should be used often as needed to:</text>
+		<a correct="true">make your intentions known to drivers around you</a>
+		<b>to signal to other drivers you have the right of way</b>
+		<c>to let other drivers know you are approaching</c>
+	</question>
+	<question>
+		<text>If a driver is driving too fast into a curve, he:</text>
+		<a>should slam the brakes when the needed</a>
+		<b>should not pull the handbrake</b>
+		<c correct="true">should not slam the brakes</c>
+	</question>
+	<question>
+		<text>The blind spot is the area to your right or left that you do not see in the side view mirror, what will you do before you back up?</text>
+		<a>look at the rearview mirror</a>
+		<b>get out of the vehicle and scout the area behind you first</b>
+		<c correct="true">turn your head to see that the way is clear</c>
+	</question>
+	<question>
+		<text>When you make an abrupt move especially when you are on a wet and possibly slippery road, the following action can cause you to skid and lose control:</text>
+		<a correct="true">improper braking</a>
+		<b>hand braking</b>
+		<c>stepping on the foot brake</c>
+	</question>
+	<question>
+		<text>While driving with a maximum speed and you have to stop suddenly, you should:</text>
+		<a correct="true">apply your brakes gently with steady pressure</a>
+		<b>apply your hand brakes gently with steady pressure</b>
+		<c>apply your brakes abruptly with hard pressure</c>
+	</question>
+	<question>
+		<text>When you intend to slow down or stop, you should:</text>
+		<a>step on your brakes lightly and turn on your hazard lights</a>
+		<b correct="true">step on your brakes lightly to turn on your brake lights</b>
+		<c>step on your brakes lightly and turn off your head lights</c>
+	</question>
+	<question>
+		<text>When approaching a flooded area and you have to go through it, what should you do?</text>
+		<a>Increase your speed so you get through immediately</a>
+		<b>Maintain your speed as most have water insulation anyways</b>
+		<c correct="true">Proceed at a very slow speed</c>
+	</question>
+	<question>
+		<text>At an intersection with traffic signals, if you (car A) are not in the proper lane to make a right or left turn you should:</text>
+		<a correct="true">a. continue ahead and find a u-turn</a>
+		<b>just continue ahead</b>
+		<c>continue to make the turn</c>
+	</question>
+	<question>
+		<text>When driving on a highway, do not just stare at the vehicle in front of you, instead you should:</text>
+		<a>you should be polite and stop staring at the vehicle in front of you</a>
+		<b correct="true">extend your scanning distance to about 12 seconds beyond the front of your vehicle</b>
+		<c>also stare at the vehicles behind you to be safe</c>
+	</question>
+	<question>
+		<text>When driving at night, you should:</text>
+		<a>decrease your speed</a>
+		<b>drink coffee so you won't fall asleep</b>
+		<c correct="true">always turn your headlights on</c>
+	</question>
+	<question>
+		<text>On a wet road, you must:</text>
+		<a>maintain speed</a>
+		<b correct="true">slow down</b>
+		<c>increase speed</c>
+	</question>
+	<question>
+		<text>If you are backing up in a straight line, turn and look behind and over your shoulder at:</text>
+		<a correct="true">right</a>
+		<b>left and right</b>
+		<c>left</c>
+	</question>
+	<question>
+		<text>How close should another car be before you dim your headlights?</text>
+		<a correct="true">150 meter</a>
+		<b>100 meter</b>
+		<c>200 meters</c>
+	</question>
+	<question>
+		<text>To avoid confusion to other road users, after changing lanes, finishing a turn and overtaking the driver should:</text>
+		<a>make sure you don't get back to previous lane after changing lanes, overtaking and finishing a turn</a>
+		<b>make sure to maintain your speed within speed limits after changing lanes, overtaking and finishing a turn</b>
+		<c correct="true">make sure your signal light turns off after changing lanes, overtaking and finishing a turn</c>
+	</question>
+	<question>
+		<text>In order to meet one’s social responsibilities of caring for others on the road, a good driver should:</text>
+		<a>always be mindful of other motorists</a>
+		<b correct="true">always exercise care for pedestrians and other road users around</b>
+		<c>always exercise patience toward other road users.</c>
+	</question>
+	<question>
+		<text>When a heavy fog occurs, you should:</text>
+		<a correct="true">park at a rest area or vehicle stop until the fog has lifted. </a>
+		<b>drive slowly and turn on the headlights</b>
+		<c>turn on your headlights and switch on the windshield wipers</c>
+	</question>
+	<question>
+		<text>Whenever you are driving, especially when overtaking:</text>
+		<a correct="true">never overtake another vehicle from a tailgating position</a>
+		<b>never overtake another vehicle that has its hazard lights on</b>
+		<c>never overtake another vehicle that is on the passing lane</c>
+	</question>
+	<question>
+		<text>It is not considered safe driving on an expressway when:</text>
+		<a>driver is driving at 80kph</a>
+		<b>driver is driving at 60kph</b>
+		<c correct="true">driver keep changing lanes without signaling</c>
+	</question>
+	<question>
+		<text>What technique can be done with a manual car when trying to get started while driving on a steep uphill gradient to prevent your car from rolling backwards?</text>
+		<a>headlight technique</a>
+		<b>jumpstart technique</b>
+		<c correct="true">handbrake technique</c>
+		<d>gas pedal technique</d>
+	</question>
+	<question>
+		<text>Is shifting to neutral or coasting a good driving habit to save fuel when driving downhill?</text>
+		<a>Yes</a>
+		<b correct="true">No</b>
+	</question>
+	<question>
+		<text>When you do not see the wheels of the vehicles in front of you, should you do?</text>
+		<a correct="true">Slow down and get back to a safer following distance</a>
+		<b>Turn your fog light on</b>
+		<c>Increase your speed until it becomes visible.</c>
+	</question>
+	<question>
+		<text>When driving downhill on a mountain road always:</text>
+		<a>be always prepared to hit the brakes</a>
+		<b>blow your horn every 1 minute</b>
+		<c correct="true">shift to low gear so the engine braking action can help you control your speed</c>
+	</question>
+	<question>
+		<text>On the expressway, if a driver tries to drive slower that the traffic, he is a hazard to the cars:</text>
+		<a>ahead</a>
+		<b>in the expressway</b>
+		<c correct="true">behind</c>
+	</question>
+	<question>
+		<text>Whenever you are driving on a highway having a lot of potholes, you should:</text>
+		<a correct="true">decrease your speed</a>
+		<b>maintain your speed</b>
+		<c>increase your speed</c>
+	</question>
+	<question>
+		<text>When the vehicle you are driving runs off the road or hits an electric post or parked car, your most probable reason is:</text>
+		<a>you have a flat tire</a>
+		<b correct="true">you are driving too fast and lost control of your vehicle</b>
+		<c>another vehicle bumped you so you lose control</c>
+	</question>
+	<question>
+		<text>When negotiating a curve on a highway at a relatively high speed you should:</text>
+		<a>maintain speed to avoid accidents from drivers behind you</a>
+		<b>increase your speed so you won't violate minimum speed limits</b>
+		<c correct="true">decrease your speed further as you enter the curve</c>
+	</question>
+	<question>
+		<text>Your speed while driving at night should keep on:</text>
+		<a correct="true">the distance that you can see where you come to a complete stop within the distance that your headlights can light up. </a>
+		<b>the speed since you have enough lighting anyways</b>
+		<c>a slow speed to avoid road crash</c>
+	</question>
+	<question>
+		<text>If you carry a load it should be:</text>
+		<a>either over or in front of the front axle</a>
+		<b>either behind or in front of the rear axle</b>
+		<c correct="true">either over or in front of the rear axle</c>
+	</question>
+	<question>
+		<text>In traffic direction and control, when both the traffic lights and law enforcer are directing traffic, which will you follow to avoid confusion?</text>
+		<a correct="true">Traffic enforcers</a>
+		<b>Both traffic light and enforcer</b>
+		<c>Traffic lights</c>
+	</question>
+	<question>
+		<text>Those who can't read and obey traffic lights could:</text>
+		<a correct="true">get involved in an accident</a>
+		<b>be able to save gasoline</b>
+		<c>be a sign that they are a good driver</c>
+	</question>
+	<question>
+		<text>The purpose of traffic laws, rules and regulations is to:</text>
+		<a>generate revenues for the government</a>
+		<b correct="true">establish an orderly movement of vehicles and pedestrian traffic and penalties</b>
+		<c>discipline traffic enforcers</c>
+	</question>
+	<question>
+		<text>It refers to any land transportation vehicles propelled by any other power than muscular power.</text>
+		<a>motorbike</a>
+		<b>muscle car</b>
+		<c correct="true">motor vehicle</c>
+	</question>
+	<question>
+		<text>If the driver will be under medication, he should:</text>
+		<a>drink coffee before driving</a>
+		<b correct="true">consult a doctor about the effects before driving</b>
+		<c>get some rest first before driving</c>
+	</question>
+	<question>
+		<text>Seatbelts must be worn by children aged:</text>
+		<a>5 years and above</a>
+		<b correct="true">7 years and above</b>
+		<c>6 years and above</c>
+	</question>
+	<question>
+		<text>Public Service Law prohibits public utility driver to converse with his passengers while the vehicle is:</text>
+		<a>parked</a>
+		<b>climbing the mountain</b>
+		<c correct="true">in motion</c>
+	</question>
+	<question>
+		<text>The most important sense the driver needs in driving is:</text>
+		<a>hearing</a>
+		<b correct="true">seeing</b>
+		<c>touch</c>
+	</question>
+	<question>
+		<text>Who are required to wear a prescribed helmet?</text>
+		<a>All bikers, skaters, and riders are required to wear helmets with ICC sticker at all times</a>
+		<b>All bikers, skaters, and riders are required to wear helmets at all times</b>
+		<c correct="true">All motorcycle riders are required to wear helmets with ICC sticker at all times</c>
+	</question>
+	<question>
+		<text>The speed limit prescribed by law does not apply to a driver:</text>
+		<a>bringing his employer to an important official meeting</a>
+		<b correct="true">of a vehicle who is in pursuit of criminal</b>
+		<c>operating along the highway where traffic is light</c>
+	</question>
+	<question>
+		<text>What is not a good trait of a driver?</text>
+		<a correct="true">Driving recklessly and under the influence of alcohol</a>
+		<b>Driving while listening to music</b>
+		<c>Driving fast on a highway</c>
+	</question>
+	<question>
+		<text>The correct apprenticeship period for an applicant of a professional driver's license is:</text>
+		<a correct="true">five months and above</a>
+		<b>two months</b>
+		<c>one month</c>
+	</question>
+	<question>
+		<text>The Director of the LTO may suspend/revoke a driver's license when:</text>
+		<a>the driver operated a motor vehicle as an accessory in the commission of any crime</a>
+		<b>The holder has been convicted for three violations of the land transportation laws within a 12-month period</b>
+		<c correct="true">both of the above</c>
+	</question>
+	<question>
+		<text>Eating, drinking, reading, or doing anything that may take your attention from driving is:</text>
+		<a correct="true">never allowed</a>
+		<b>allowed if you have a professional driver's license</b>
+		<c>allowed as long as you can handle it</c>
+	</question>
+	<question>
+		<text>Driving under the influence of alcohol is one of the major causes of vehicular accident because when a driver is drunk, he is:</text>
+		<a>arrogant, talkative, and very sleepy to drive safely</a>
+		<b>arrogant, talkative, and gets easily irritated</b>
+		<c correct="true">arrogant, talkative and doesn’t have the judgment and the reflexes to drive safely</c>
+	</question>
+	<question>
+		<text>Graft and corruption in the traffic enforcement system can be eliminated by:</text>
+		<a>understanding the road and traffic rules and regulations</a>
+		<b>understanding the road and traffic rules and regulations</b>
+		<c correct="true">self discipline by drivers and obeying traffic rules and regulations</c>
+	</question>
+	<question>
+		<text>DOT (Department Of Transportation) rules and regulations prohibit drivers of public utility vehicles from:</text>
+		<a>overcharging fares and using tampered taximeters</a>
+		<b>cutting-trip or going beyond authorized route</b>
+		<c correct="true">both of the above</c>
+	</question>
+	<question>
+		<text>What documents must you carry along whenever you drive a "for hire" vehicle?</text>
+		<a>Non-professional driver’s license, and current OR/CR</a>
+		<b correct="true">Professional driver’s license, and current OR/CR</b>
+		<c>Driver’s license, and current OR/CR</c>
+	</question>
+	<question>
+		<text>To avoid intersection collision, a driver must:</text>
+		<a correct="true">know and practice the rules relating to the right of way and proper procedure in crossing an intersection</a>
+		<b>blow his horn to signal that he's approaching</b>
+		<c>always proceed with caution in an intersection</c>
+	</question>
+	<question>
+		<text>According to the Philippine Clean Air Act of 1999 (R. R. a. No. 8749)</text>
+		<a>all road users has the right to breathe clean air.</a>
+		<b>every citizen must strive for their right to breathe clean air.</b>
+		<c correct="true">every citizen has the right to breathe clean air.</c>
+	</question>
+	<question>
+		<text>Which of the following are not considered "highways"?</text>
+		<a>Public park, alley and boulevard</a>
+		<b correct="true">Roadway upon property owned by private persons or universities</b>
+		<c>Driveway, avenue and boulevard</c>
+	</question>
+	<question>
+		<text>One that affects your visibility while driving is?</text>
+		<a correct="true">Defective or dirty headlights</a>
+		<b>Poor road lighting</b>
+		<c>Foggy road</c>
+	</question>
+	<question>
+		<text>The deadline to renew the registration of a motor vehicle is:</text>
+		<a>at the discretion of the operator</a>
+		<b>at the end of the year</b>
+		<c correct="true">on the last working day of the month corresponding to the last digit of the motor vehicle plates</c>
+	</question>
+	<question>
+		<text>A driver with Restriction Code No. 1 in his license is allowed to drive:</text>
+		<a correct="true">motorcycle only</a>
+		<b>truck</b>
+		<c>cars</c>
+	</question>
+	<question>
+		<text>A person whose driver's license is under suspension may:</text>
+		<a>operate a motor vehicle in a case of extreme emergency</a>
+		<b correct="true">not operate a motor vehicle under any condition</b>
+		<c>operate a motor vehicle when accompanied by a licensed driver</c>
+	</question>
+	<question>
+		<text>Passing/overtaking is allowed:</text>
+		<a>on highway with solid yellow lines</a>
+		<b correct="true">on highway with two or more lanes</b>
+		<c>on highway with at least 60kph speed limit</c>
+	</question>
+	<question>
+		<text>A motor vehicle means any vehicle that:</text>
+		<a correct="true">is propelled by any motor engine</a>
+		<b>runs only on mile or traffics</b>
+		<c>is propelled by muscular power such as bicycle and carts</c>
+	</question>
+	<question>
+		<text>Before a private motor vehicle owner can apply for a DOT franchise, the motor vehicle must be registered with the:</text>
+		<a>Constabulary Highway Patrol Group</a>
+		<b>Philippine Motors Association</b>
+		<c correct="true">Land Transportation Office (LTO)</c>
+	</question>
+	<question>
+		<text>Before making a long trip, a driver should:</text>
+		<a>sleep for 8 hours</a>
+		<b correct="true">prepare tools and repair kit; and plan route and check the condition of the vehicle</b>
+		<c>drink coffee if you slept less than 8 hours</c>
+	</question>
+	<question>
+		<text>Are children below 6 years old allowed to sit in the passenger seat beside the driver?</text>
+		<a>Yes</a>
+		<b correct="true">No</b>
+		<c>It depends</c>
+	</question>
+	<question>
+		<text>As per RA 4136, the brakes on every vehicle (other than a motorcycle) must:</text>
+		<a correct="true">consist of a good foot and hand brake</a>
+		<b>consist of a good foot break that works as intended</b>
+		<c>consist of brake fluid at all times</c>
+	</question>
+	<question>
+		<text>What should you do to avoid air pollution especially from motor vehicles</text>
+		<a correct="true">help enforce the law by having regular motor vehicle check-up and avoid overloading</a>
+		<b>plant more trees</b>
+		<c>use a car that's not more than 10 years old</c>
+	</question>
+	<question>
+		<text>A pre-trip inspection should be completed:</text>
+		<a>before and after operating the motor vehicle</a>
+		<b>after operating the motor vehicle</b>
+		<c correct="true">before operating the motor vehicle</c>
+	</question>
+	<question>
+		<text>Public utility motor vehicle plates are colored:</text>
+		<a correct="true">yellow with black numerals</a>
+		<b>white with green numerals</b>
+		<c>white with red numerals</c>
+	</question>
+	<question>
+		<text>The Road Users Charge Law (R. a. No. 8794) was enacted by the Philippine Congress to serve as basis for.</text>
+		<a>collecting violation fees for motor vehicles</a>
+		<b correct="true">collecting registration fees for motor vehicles</b>
+		<c>collecting tax fees for motor vehicles</c>
+	</question>
+	<question>
+		<text>Chances of being hurt or killed while driving/riding are reduced if one is wearing:</text>
+		<a>helmet</a>
+		<b>alarm device</b>
+		<c correct="true">seat belts/helmets</c>
+	</question>
+	<question>
+		<text>A fabricated storage compartment fitted behind the seat of a motorcycle that is considered as a motorcycle accessory:</text>
+		<a>Top Box</a>
+		<b correct="true">Customized Top-Box</b>
+		<c>Saddle Bags/Box</c>
+	</question>
+	<question>
+		<text>What is the height requirement for a child to be exempted to use a child restraint system?</text>
+		<a>100 cms and above</a>
+		<b correct="true">150 cms and above</b>
+		<c>180 cms and above</c>
+	</question>
+	<question>
+		<text>Registration of motor vehicle may be suspended if:</text>
+		<a>motor vehicle is found to be in conformity with regulations</a>
+		<b correct="true">motor vehicle is found to be unsightly</b>
+		<c>motor vehicle is not registered to the driver at the time of apprehension</c>
+	</question>
+	<question>
+		<text>What is the main use of hazard markers?</text>
+		<a correct="true">To remind the driver of changes in the direction of travel</a>
+		<b>To advise the driver to make a full stop</b>
+		<c>To command the driver to turn at once</c>
+	</question>
+	<question>
+		<text>Where can you contest an alleged traffic violation?</text>
+		<a correct="true">at the traffic adjudication office concerned</a>
+		<b>on the street, before the traffic enforcer leaves</b>
+		<c>at any adjudication office</c>
+	</question>
+	<question>
+		<text>What should a driver do while another vehicle is trying to overtake?</text>
+		<a correct="true">Continue with current speed</a>
+		<b>Speed up</b>
+		<c>Drive on the shoulder of the road</c>
+	</question>
+	</questions>
+	</script>
+
+	<script src="script.js" defer></script>
+	
+	<script id="xml-data" type="text/xml">
+	<!-- your XML questions here -->
+	</script>
+
+</body>
+</html>
