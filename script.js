@@ -132,7 +132,7 @@
 			  });
 			}
 
-			  scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
+			  scoreEl.textContent = `✅ ${correctCount} / ❎ ${wrongCount}`;
 			});
 
 
