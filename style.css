@@ -218,47 +218,4 @@
 
 
 
-	
-	@media (max-width: 600px) {
-	  body {
-		padding: 20px;
-		font-size: 1.1em;
-	  }
 
-	  h1 {
-		font-size: 1.5em;
-		margin-bottom: 20px;
-	  }
-
-	  .top-bar {
-		align-items: flex-start;
-		font-size: 1em;
-	  }
-
-	  .score-display,
-	  .question-count {
-		width: 100%;
-		margin-bottom: 5px;
-	  }
-
-	  .choice-wrapper {
-		flex-direction: row;
-		padding: 10px;
-		font-size: 1em;
-	  }
-
-	  .choice-wrapper input[type="radio"] {
-		width: 18px;
-		height: 18px;
-		margin-right: 10px;
-	  }
-
-	  .next-btn {
-		font-size: 1.1em;
-		padding: 14px;
-	  }
-
-	  .answer-display {
-		font-size: 1.1em;
-	  }
-	}
