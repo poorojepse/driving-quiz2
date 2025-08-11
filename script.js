@@ -1,94 +1,195 @@
-let correctCount = 0;
-let wrongCount = 0;
-const scoreEl = document.getElementById("score");
-const nextBtn = document.getElementById("next"); // ✅ Declare once globally
+		let correctCount = 0;
+		let wrongCount = 0;
+		const wrongAnswersLog = [];
+		const scoreEl = document.getElementById("score");
+		const nextBtn = document.getElementById("next"); // ✅ Declare once globally
 
-const xmlText = document.getElementById("xml-data").textContent;
-const parser = new DOMParser();
-const xml = parser.parseFromString(xmlText, "text/xml");
-const questions = Array.from(xml.getElementsByTagName("question"));
-let currentIndex = 0;
+		const xmlText = document.getElementById("xml-data").textContent;
+		const parser = new DOMParser();
+		const xml = parser.parseFromString(xmlText, "text/xml");
+		const questions = Array.from(xml.getElementsByTagName("question"));
+		let currentIndex = 0;
 
-const questionEl = document.getElementById("question");
-const answersEl = document.getElementById("answers");
-const counterEl = document.getElementById("counter");
-const answerDisplay = document.getElementById("answer-display");
+		const questionEl = document.getElementById("question");
+		const answersEl = document.getElementById("answers");
+		const counterEl = document.getElementById("counter");
+		const answerDisplay = document.getElementById("answer-display");
 
-function renderQuestion(index) {
-  const q = questions[index];
-  if (!q) return;
+		const questionInput = document.getElementById("question-input");
+		const goBtn = document.getElementById("go-btn");
+		const totalDisplay = document.getElementById("total-display");
+		totalDisplay.textContent = `/ ${questions.length}`;
 
-  const text = q.getElementsByTagName("text")[0].textContent;
-  const choices = Array.from(q.children).filter(el => el.tagName !== "text");
 
-  questionEl.textContent = text;
-  counterEl.textContent = `${index + 1} / ${questions.length}`;
-  answersEl.innerHTML = "";
-  answerDisplay.textContent = "";
+		goBtn.addEventListener("click", () => {
+		  const value = parseInt(questionInput.value);
+		  if (!isNaN(value) && value >= 1 && value <= questions.length) {
+			currentIndex = value - 1;
+			renderQuestion(currentIndex);
+		  } else {
+			alert(`Please enter a number between 1 and ${questions.length}`);
+		  }
+		});
 
-  let answered = false;
+		questionInput.addEventListener("keydown", (e) => {
+		  if (e.key === "Enter") goBtn.click();
+		});
 
-  nextBtn.disabled = true; // 🔒 Disable Next button at start
+		function renderQuestion(index) {
+		  const q = questions[index];
+		  if (!q) return;
 
-  choices.forEach((choice, i) => {
-    const id = `choice-${i}`;
-    const isCorrect = choice.getAttribute("correct") === "true";
+		  const text = q.getElementsByTagName("text")[0].textContent;
+		  const choices = Array.from(q.children).filter(el => el.tagName !== "text");
 
-    const wrapper = document.createElement("div");
-    wrapper.classList.add("choice-wrapper");
+		  questionEl.textContent = text;
+		  questionInput.value = index + 1;
+		  answersEl.innerHTML = "";
+		  answerDisplay.textContent = "";
 
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "answer";
-    input.id = id;
-    input.dataset.correct = isCorrect;
+		  let answered = false;
 
-    const label = document.createElement("label");
-    label.htmlFor = id;
-    label.textContent = choice.textContent;
+		  nextBtn.disabled = true; // 🔒 Disable Next button at start
 
-    input.addEventListener("change", () => {
-      if (answered) return;
-      answered = true;
+		  choices.forEach((choice, i) => {
+			const id = `choice-${i}`;
+			const isCorrect = choice.getAttribute("correct") === "true";
 
-      nextBtn.disabled = false; // ✅ Enable Next button after selection
+			const wrapper = document.createElement("div");
+			wrapper.classList.add("choice-wrapper");
 
-      if (isCorrect) {
-        correctCount++;
-      } else {
-        wrongCount++;
-      }
-      scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
+			const input = document.createElement("input");
+			input.type = "checkbox";
+			input.id = id;
+			input.dataset.correct = isCorrect;
 
-      document.querySelectorAll('input[name="answer"]').forEach(el => el.disabled = true);
-      document.querySelectorAll(".choice-wrapper").forEach(div => {
-        div.classList.remove("correct-answer", "wrong-answer");
-      });
+			const label = document.createElement("label");
+			label.htmlFor = id;
+			label.textContent = choice.textContent;
 
-      if (isCorrect) {
-        wrapper.classList.add("correct-answer");
-        answerDisplay.textContent = `Correct: ${choice.textContent}`;
-      } else {
-        wrapper.classList.add("wrong-answer");
-        const correctChoice = choices.find(c => c.getAttribute("correct") === "true");
-        const correctIndex = choices.indexOf(correctChoice);
-        const correctWrapper = answersEl.children[correctIndex];
-        correctWrapper.classList.add("correct-answer");
-        answerDisplay.textContent = `Correct: ${correctChoice.textContent}`;
-      }
-    });
+			input.addEventListener("change", () => {
+				if (answered) return;
 
-    wrapper.appendChild(input);
-    wrapper.appendChild(label);
-    answersEl.appendChild(wrapper);
-  });
-}
+				const selectedInputs = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+				const selectedCount = selectedInputs.length;
 
-nextBtn.addEventListener("click", () => {
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    renderQuestion(currentIndex);
-  }
-});
+				// Wait until user selects all correct answers
+				const correctChoices = choices.filter(c => c.getAttribute("correct") === "true");
+				const correctExpected = correctChoices.length;
 
-renderQuestion(currentIndex); // ✅ Initial render
+				if (selectedCount < correctExpected) return;
+
+
+				answered = true;
+				nextBtn.disabled = false;
+
+				let allCorrect = true;
+
+				selectedInputs.forEach(input => {
+				const isCorrect = input.dataset.correct === "true";
+				const wrapper = input.closest(".choice-wrapper");
+
+				if (isCorrect) {
+				  wrapper.classList.add("correct-answer");
+				} else {
+				  wrapper.classList.add("wrong-answer");
+				  allCorrect = false;
+				}
+			  });
+
+			  // Highlight missed correct answers
+			  choices.forEach((choice, i) => {
+				const isCorrect = choice.getAttribute("correct") === "true";
+				const wrapper = answersEl.children[i];
+				const input = wrapper.querySelector("input");
+
+				input.disabled = true;
+
+				if (isCorrect && !input.checked) {
+				  wrapper.classList.add("correct-answer");
+				  allCorrect = false;
+				}
+			  });
+
+			const correctTexts = correctChoices.map(c => c.textContent).join(", ");
+			answerDisplay.textContent = allCorrect
+			  ? `✅ Correct! Answer: ${correctTexts}`
+			  : `✅ Correct answers: ${correctTexts}`;
+
+			if (allCorrect) {
+			  correctCount++;
+			} else {
+			  wrongCount++;
+			}
+			if (!allCorrect) {
+			  const userSelections = selectedInputs.map(input => input.nextSibling.textContent.trim());
+			  const correctTexts = correctChoices.map(c => c.textContent.trim());
+
+			  wrongAnswersLog.push({
+				question: text,
+				correct: correctTexts,
+				selected: userSelections
+			  });
+			}
+
+			  scoreEl.textContent = `✅ Correct: ${correctCount} / ❎ Wrong: ${wrongCount}`;
+			});
+
+
+			wrapper.appendChild(input);
+			wrapper.appendChild(label);
+			answersEl.appendChild(wrapper);
+		  });
+		}
+		
+		function showFinalSummary() {
+		  const total = correctCount + wrongCount;
+		  const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+		  const message = percent === 100
+			? "🎉 Perfect score! You're ready to hit the road!"
+			: percent >= 75
+			? "👍 Great job! Just a little more practice."
+			: "📘 Keep studying! You'll get there.";
+
+		  const summaryEl = document.getElementById("final-summary");
+		  let reviewHTML = "";
+
+		  if (wrongAnswersLog.length > 0) {
+			reviewHTML += `<hr><h3>🧠 Review Incorrect Answers</h3>`;
+			wrongAnswersLog.forEach((item, i) => {
+			  reviewHTML += `
+				<div style="text-align:left; margin-bottom:20px;">
+				  <strong>Q${i + 1}:</strong> ${item.question}<br>
+				  <span style="color:green;">✅ Correct: ${item.correct.join(", ")}</span><br>
+				  <span style="color:red;">❌ Your Answer: ${item.selected.join(", ")}</span>
+				</div>
+			  `;
+			});
+		  }
+
+		  summaryEl.innerHTML = `
+			<hr>
+			<h2>📊 Final Score Summary</h2>
+			<p>✅ Correct: ${correctCount}</p>
+			<p>❎ Wrong: ${wrongCount}</p>
+			<p>📈 Score: ${percent}%</p>
+			<p>${message}</p>
+			${reviewHTML}
+		  `;
+		  summaryEl.style.display = "block";
+		}
+
+
+
+		nextBtn.addEventListener("click", () => {
+		  if (currentIndex < questions.length - 1) {
+			currentIndex++;
+			renderQuestion(currentIndex);
+		  } else {
+			nextBtn.disabled = true;
+			showFinalSummary();
+		  }
+		});
+
+
+		renderQuestion(currentIndex); // ✅ Initial render

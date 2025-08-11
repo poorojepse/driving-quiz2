@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>LTO Driving Exam - NP to PL</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
 	<link rel="stylesheet" href="style.css">
+	<title>LTO Driving Exam Quiz - NP to PL</title>
 </head>
 <body>
-	<h1>LTO Driving Exam - NP to PL</h1>
+	<h1>LTO Driving Exam - A, A1, B, B1, B2 - NP to PL</h1>
 	<div class="top-bar">
-	  <div class="score-display" id="score">✅ Correct: 0 / ❎ Wrong: 0</div>
-	  <div class="question-count" id="counter"></div>
+		<div class="score-display" id="score">✅ Correct: 0 / ❎ Wrong: 0</div>
+		<div class="question-count">
+		  <input type="number" id="question-input" min="1">
+		  <span id="total-display" style="margin: 0 8px;">/ 3</span>
+		  <button id="go-btn">Go</button>
+		</div>
 	</div>
 
 
@@ -21,6 +26,7 @@
 	<button class="next-btn" id="next">Next</button>
 	<div class="answer-display" id="answer-display"></div>
 
+<div id="final-summary" style="display:none; margin-top: 30px; font-size: 1.2em; text-align: center;"></div>
 
 	<script id="xml-data" type="text/xml">
 <questions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -350,12 +356,6 @@
 		<c>200 meters</c>
 	</question>
 	<question>
-		<text>What does this sign indicate?.</text>
-		<a correct="true">Stay on the extreme right side of the highway</a>
-		<b>Road widens ahead</b>
-		<c>Winding road</c>
-	</question>
-	<question>
 		<text>Describes the thinking of a defensive driver:</text>
 		<a>always well rested and alert while driving</a>
 		<b>considers driving safely and defensively at all times</b>
@@ -482,12 +482,6 @@
 		<c>you can drive on this lane with caution</c>
 	</question>
 	<question>
-		<text>What does this sign indicate?</text>
-		<a correct="true">Road bends, prepare to go right and then left</a>
-		<b>Road close ahead, go right</b>
-		<c>You may travel beyond 30 kph</c>
-	</question>
-	<question>
 		<text>What are white lines on the road for?</text>
 		<a>Sign that you can go left or right</a>
 		<b>Separates traffic going in two directions</b>
@@ -536,12 +530,6 @@
 		<c correct="true">caution or warning sign</c>
 	</question>
 	<question>
-		<text>What does this sign indicate?</text>
-		<a correct="true">Hospital zone</a>
-		<b>Intersection</b>
-		<c>Highway</c>
-	</question>
-	<question>
 		<text>This traffic sign warns you that school children may be present in the vicinity:</text>
 		<a>circle</a>
 		<b>triangle</b>
@@ -552,18 +540,6 @@
 		<a>Warning</a>
 		<b>Giving direction</b>
 		<c correct="true">Compulsory</c>
-	</question>
-	<question>
-		<text>What does this sign indicate?</text>
-		<a correct="true">There is a winding road ahead</a>
-		<b>Road widens ahead</b>
-		<c>Barricade ahead, prepare detour</c>
-	</question>
-	<question>
-		<text>What does this sign indicate?</text>
-		<a correct="true">Humps ahead — slow down to keep control</a>
-		<b>Soft shoulder</b>
-		<c>You are approaching a downgrade</c>
 	</question>
 	<question>
 		<text>At an intersection with a traffic light, make a left turn only when:</text>
@@ -3920,6 +3896,8 @@
 	</script>
 
 	<script src="script.js" defer></script>
+
+	</script>
 	
 	<script id="xml-data" type="text/xml">
 	<!-- your XML questions here -->
@@ -3927,4 +3905,3 @@
 
 </body>
 </html>
-
