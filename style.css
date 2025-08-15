@@ -5,6 +5,7 @@
 	  margin: 40px auto;
 	  padding: 30px;
 	  color: #333;
+	  font-size: 1em;
 	  position: relative;
 	}
 
@@ -296,3 +297,23 @@
   color: white;
 }
 
+#order-toggle {
+  margin-bottom: 20px;
+  font-size: .7em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 2em;
+}
+#order-checkbox {
+  display: none;
+}
+
+@media (max-width: 768px) {
+	.choice-wrapper {
+	  padding: 8px 10px;
+	}
+}

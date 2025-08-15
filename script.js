@@ -2,6 +2,9 @@ let correctCount = 0;
 let wrongCount = 0;
 const wrongAnswersLog = [];
 
+let shuffleChoices = false;
+let randomizeOrder = false;
+
 const scoreEl = document.getElementById("score");
 const nextBtn = document.getElementById("next");
 
@@ -9,6 +12,8 @@ const xmlText = document.getElementById("xml-data").textContent;
 const parser = new DOMParser();
 const xml = parser.parseFromString(xmlText, "text/xml");
 const questions = Array.from(xml.getElementsByTagName("question"));
+
+let questionOrder = questions.map((_, i) => i);
 let currentIndex = 0;
 
 const questionEl = document.getElementById("question");
@@ -20,7 +25,6 @@ const goBtn = document.getElementById("go-btn");
 const totalDisplay = document.getElementById("total-display");
 totalDisplay.textContent = `/ ${questions.length}`;
 
-let shuffleChoices = false;
 const shuffleCheckbox = document.getElementById("shuffle-checkbox");
 const shuffleSwitch = document.getElementById("shuffle-switch");
 const startBtn = document.getElementById("start-quiz-btn");
@@ -29,7 +33,19 @@ const liveReview = document.getElementById("live-review");
 const reviewList = document.getElementById("review-list");
 const summaryEl = document.getElementById("final-summary");
 
-// ✅ Custom toggle switch logic
+const orderCheckbox = document.getElementById("order-checkbox");
+const orderSwitch = document.getElementById("order-switch");
+
+// ✅ Toggle switch logic for question order
+orderSwitch.addEventListener("click", () => {
+  const isOn = orderSwitch.classList.contains("on");
+  orderSwitch.classList.toggle("on", !isOn);
+  orderSwitch.classList.toggle("off", isOn);
+  orderCheckbox.checked = !isOn;
+  randomizeOrder = orderCheckbox.checked;
+});
+
+// ✅ Toggle switch logic for choice shuffling
 shuffleSwitch.addEventListener("click", () => {
   const isOn = shuffleSwitch.classList.contains("on");
   shuffleSwitch.classList.toggle("on", !isOn);
@@ -38,19 +54,31 @@ shuffleSwitch.addEventListener("click", () => {
   shuffleChoices = shuffleCheckbox.checked;
 });
 
-// ✅ Start Quiz button
+// ✅ Start quiz
 startBtn.addEventListener("click", () => {
   shuffleChoices = shuffleCheckbox.checked;
+  randomizeOrder = orderCheckbox.checked;
+
+  questionOrder = questions.map((_, i) => i);
+  if (randomizeOrder) {
+    questionOrder = shuffleArray(questionOrder);
+  }
+
+  currentIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  wrongAnswersLog.length = 0;
+
   hideOverlay();
   renderQuestion(currentIndex);
 });
 
 // ✅ Hide overlay
 function hideOverlay() {
-  const overlay = document.getElementById("quiz-overlay");
-  overlay.style.display = "none";
+  document.getElementById("quiz-overlay").style.display = "none";
 }
 
+// ✅ Go to specific question number
 goBtn.addEventListener("click", () => {
   const value = parseInt(questionInput.value);
   if (!isNaN(value) && value >= 1 && value <= questions.length) {
@@ -65,8 +93,10 @@ questionInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") goBtn.click();
 });
 
+// ✅ Render a question
 function renderQuestion(index) {
-  const q = questions[index];
+  const actualIndex = questionOrder[index];
+  const q = questions[actualIndex];
   if (!q) return;
 
   const text = q.getElementsByTagName("text")[0].textContent;
@@ -79,7 +109,7 @@ function renderQuestion(index) {
     }));
 
   if (shuffleChoices) {
-    choices = choices.sort(() => Math.random() - 0.5);
+    choices = shuffleArray(choices);
   }
 
   questionEl.textContent = text;
@@ -96,7 +126,6 @@ function renderQuestion(index) {
 
   choices.forEach((choice, i) => {
     const id = `choice-${i}`;
-
     const wrapper = document.createElement("div");
     wrapper.classList.add("choice-wrapper");
 
@@ -116,6 +145,7 @@ function renderQuestion(index) {
     renderedChoices.push({ wrapper, input, label, isCorrect: choice.correct });
   });
 
+  // ✅ Handle answer checking
   renderedChoices.forEach(({ input, wrapper, isCorrect }) => {
     input.addEventListener("change", () => {
       if (answered) return;
@@ -163,7 +193,7 @@ function renderQuestion(index) {
           selected: userSelections
         });
 
-        // ✅ Live review update
+        // ✅ Live review
         liveReview.style.display = "block";
         const reviewItem = document.createElement("div");
         reviewItem.style.marginBottom = "20px";
@@ -181,6 +211,17 @@ function renderQuestion(index) {
   });
 }
 
+// ✅ Shuffle helper
+function shuffleArray(array) {
+  const cloned = array.slice();
+  for (let i = cloned.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+  }
+  return cloned;
+}
+
+// ✅ Final summary
 function showFinalSummary() {
   const total = correctCount + wrongCount;
   const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
@@ -190,7 +231,6 @@ function showFinalSummary() {
     ? "👍 Great job! Just a little more practice."
     : "📘 Keep studying! You'll get there.";
 
-  // ✅ Clear live review section
   liveReview.style.display = "none";
   reviewList.innerHTML = "";
 
@@ -222,7 +262,7 @@ function showFinalSummary() {
 }
 
 nextBtn.addEventListener("click", () => {
-  if (currentIndex < questions.length - 1) {
+  if (currentIndex < questionOrder.length - 1) {
     currentIndex++;
     renderQuestion(currentIndex);
   } else {
@@ -230,3 +270,4 @@ nextBtn.addEventListener("click", () => {
     showFinalSummary();
   }
 });
+
