@@ -143,6 +143,7 @@ pinnedBtn.addEventListener("click", () => {
     return;
   }
 	document.getElementById("quiz-title").innerHTML = "Pinned Quiz<br>LTO Driving Exam";
+	document.getElementById("total-display").textContent = "/ " + pinnedQuestions.length;
 
   questionOrder = pinnedQuestions.slice();
   currentIndex = 0;
