@@ -95,6 +95,12 @@ questionInput.addEventListener("keydown", (e) => {
 
 
 
+
+
+
+
+
+
 // 📌 Pinned Questions Feature
 let pinnedQuestions = JSON.parse(localStorage.getItem("pinnedQuestions") || "[]");
 
@@ -136,6 +142,7 @@ pinnedBtn.addEventListener("click", () => {
     alert("No pinned questions yet.");
     return;
   }
+	document.getElementById("quiz-title").innerHTML = "Pinned Quiz<br>LTO Driving Exam";
 
   questionOrder = pinnedQuestions.slice();
   currentIndex = 0;
@@ -151,6 +158,28 @@ pinnedBtn.addEventListener("click", () => {
 pinBtn.addEventListener("click", () => {
   pinQuestion(currentIndex);
 });
+
+// ✅ Check if current question is pinned and update button state
+function updatePinButton(index) {
+  const actualIndex = questionOrder[index];
+  if (pinnedQuestions.includes(actualIndex)) {
+    pinBtn.classList.add("pinned");
+    pinBtn.disabled = true;
+  } else {
+    pinBtn.classList.remove("pinned");
+    pinBtn.disabled = false;
+  }
+}
+
+// ✅ Attach pin button
+pinBtn.addEventListener("click", () => {
+  pinQuestion(currentIndex);
+  updatePinButton(currentIndex);
+});
+
+
+
+
 
 
 
@@ -270,7 +299,9 @@ function renderQuestion(index) {
       scoreEl.textContent = `✅ ${correctCount} / ❎ ${wrongCount}`;
     });
   });
-  pinBtn.style.display = "inline-block";
+	pinBtn.style.display = "inline-block";
+	updatePinButton(index);
+
 }
 
 // ✅ Shuffle helper

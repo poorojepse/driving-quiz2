@@ -36,20 +36,21 @@
 
 
 
-	<h1>LTO Driving Exam<br>A, A1, B, B1, B2<br></h1>
+	<h1 id="quiz-title">LTO Driving Exam<br>A, A1, B, B1, B2</h1>
 	<div class="top-bar">
 		<div class="score-display" id="score">✅ 0 / ❎ 0</div>
 		<div class="question-count">
 		  <input type="number" id="question-input" min="1">
 		  <span id="total-display" style="margin: 0 8px;">/ 3</span>
 		  <button id="go-btn">Go</button>
+		  <button id="pin-btn" class="pin-btn">📌 (<span id="pinned-count-btn">0</span>)</button>
 		</div>
 	</div>
 
 
 	<div class="question-text" id="question"></div>
 
-	<button id="pin-btn" class="pin-btn">📌 Pin Question (<span id="pinned-count-btn">0</span>)</button>
+	
 
 	<!-- Use div instead of form -->
 	<div class="answers" id="answers">
@@ -96,6 +97,10 @@
 	</script>
 
 	<script src="script.js" defer></script>
+	<script>
+	if ("serviceWorker" in navigator) {
+	  navigator.serviceWorker.register("service-worker.js");
+	}
 
 	</script>
 	
