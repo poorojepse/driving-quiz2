@@ -33,6 +33,7 @@
 	  font-size: 0.95em;
 	  text-align: left;
 	  color: #333;
+	  flex-grow: 1;
 	}
 
 	.question-text {
@@ -130,6 +131,7 @@
 		width: 30px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
+		flex-grow: 2;
 	}
 
 	#go-btn {
@@ -312,7 +314,6 @@
 }
 
 .pin-btn {
-  margin-top: 10px;
   padding: 6px 12px;
   background: #f39c12;
   color: white;
@@ -360,6 +361,9 @@
 
 
 @media (max-width: 768px) {
+	body {
+	  padding: 16px;
+	}
 	.choice-wrapper {
 	  padding: 8px 10px;
 	}
