@@ -101,82 +101,74 @@ questionInput.addEventListener("keydown", (e) => {
 
 
 
-// 📌 Pinned Questions Feature
+// 📌 Pinned Questions — unified logic
 let pinnedQuestions = JSON.parse(localStorage.getItem("pinnedQuestions") || "[]");
 
 const pinBtn = document.getElementById("pin-btn");
-const pinnedBtn = document.getElementById("start-pinned-btn");
+const startPinnedBtn = document.getElementById("start-pinned-btn");
 const clearPinnedBtn = document.getElementById("clear-pinned-btn");
 const pinnedCountOverlay = document.getElementById("pinned-count-overlay");
 const pinnedCountBtn = document.getElementById("pinned-count-btn");
 
-// ✅ Update counters
-function updatePinnedCount() {
-  pinnedCountOverlay.textContent = pinnedQuestions.length;
-  pinnedCountBtn.textContent = pinnedQuestions.length;
+// Keep counts + button disabled states in sync
+function updatePinnedUI() {
+  const count = pinnedQuestions.length;
+  if (pinnedCountOverlay) pinnedCountOverlay.textContent = count;
+  if (pinnedCountBtn) pinnedCountBtn.textContent = count;
+  if (startPinnedBtn) startPinnedBtn.disabled = count === 0;
+  if (clearPinnedBtn) clearPinnedBtn.disabled = count === 0;
 }
-updatePinnedCount();
 
-// ✅ Pin the current question
+// Gray/disable pin button if current question is already pinned
+function updatePinButton(index) {
+  const actualIndex = questionOrder[index];
+  const isPinned = pinnedQuestions.includes(actualIndex);
+  pinBtn.classList.toggle("pinned", isPinned);
+  pinBtn.disabled = isPinned;
+}
+
+// Add current question to pinned (no duplicates)
 function pinQuestion(index) {
   const actualIndex = questionOrder[index];
   if (!pinnedQuestions.includes(actualIndex)) {
     pinnedQuestions.push(actualIndex);
     localStorage.setItem("pinnedQuestions", JSON.stringify(pinnedQuestions));
-    updatePinnedCount();
   }
+  updatePinnedUI();
+  updatePinButton(index);
 }
 
-// ✅ Clear pinned
+// Clear all pinned
 clearPinnedBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to clear all pinned questions?")) {
-    pinnedQuestions = [];
-    localStorage.removeItem("pinnedQuestions");
-    updatePinnedCount();
-  }
+  if (!pinnedQuestions.length) return;
+  if (!confirm("Clear all pinned questions?")) return;
+  pinnedQuestions = [];
+  localStorage.removeItem("pinnedQuestions");
+  updatePinnedUI();
+  updatePinButton(currentIndex);
 });
 
-// ✅ Start pinned quiz
-pinnedBtn.addEventListener("click", () => {
-  if (pinnedQuestions.length === 0) {
-    alert("No pinned questions yet.");
-    return;
-  }
-	document.getElementById("quiz-title").innerHTML = "Pinned Quiz<br>LTO Driving Exam";
-	document.getElementById("total-display").textContent = "/ " + pinnedQuestions.length;
-
-  questionOrder = pinnedQuestions.slice();
+// Start quiz using only pinned questions
+startPinnedBtn.addEventListener("click", () => {
+  if (startPinnedBtn.disabled) return; // safety
+  questionOrder = pinnedQuestions.slice(); // use direct indices
   currentIndex = 0;
   correctCount = 0;
   wrongCount = 0;
   wrongAnswersLog.length = 0;
 
+  document.getElementById("quiz-title").innerHTML = "Pinned Quiz<br>LTO Driving Exam";
+  totalDisplay.textContent = `/ ${questionOrder.length}`;
+
   hideOverlay();
   renderQuestion(currentIndex);
 });
 
-// ✅ Attach pin button
-pinBtn.addEventListener("click", () => {
-  pinQuestion(currentIndex);
-});
+// Pin button action
+pinBtn.addEventListener("click", () => pinQuestion(currentIndex));
 
-// ✅ Check if current question is pinned and update button state
-function updatePinButton(index) {
-  const actualIndex = questionOrder[index];
-  if (pinnedQuestions.includes(actualIndex)) {
-    pinBtn.classList.add("pinned");
-    pinBtn.disabled = true;
-  } else {
-    pinBtn.classList.remove("pinned");
-    pinBtn.disabled = false;
-  }
-}
-
-// ✅ Attach pin button
-pinBtn.addEventListener("click", () => {
-  pinQuestion(currentIndex);
-  updatePinButton(currentIndex);
-});
+// Initialize states on load
+updatePinnedUI();
 
 
 
