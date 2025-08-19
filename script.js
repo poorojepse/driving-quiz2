@@ -93,6 +93,67 @@ questionInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") goBtn.click();
 });
 
+
+
+// 📌 Pinned Questions Feature
+let pinnedQuestions = JSON.parse(localStorage.getItem("pinnedQuestions") || "[]");
+
+const pinBtn = document.getElementById("pin-btn");
+const pinnedBtn = document.getElementById("start-pinned-btn");
+const clearPinnedBtn = document.getElementById("clear-pinned-btn");
+const pinnedCountOverlay = document.getElementById("pinned-count-overlay");
+const pinnedCountBtn = document.getElementById("pinned-count-btn");
+
+// ✅ Update counters
+function updatePinnedCount() {
+  pinnedCountOverlay.textContent = pinnedQuestions.length;
+  pinnedCountBtn.textContent = pinnedQuestions.length;
+}
+updatePinnedCount();
+
+// ✅ Pin the current question
+function pinQuestion(index) {
+  const actualIndex = questionOrder[index];
+  if (!pinnedQuestions.includes(actualIndex)) {
+    pinnedQuestions.push(actualIndex);
+    localStorage.setItem("pinnedQuestions", JSON.stringify(pinnedQuestions));
+    updatePinnedCount();
+  }
+}
+
+// ✅ Clear pinned
+clearPinnedBtn.addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear all pinned questions?")) {
+    pinnedQuestions = [];
+    localStorage.removeItem("pinnedQuestions");
+    updatePinnedCount();
+  }
+});
+
+// ✅ Start pinned quiz
+pinnedBtn.addEventListener("click", () => {
+  if (pinnedQuestions.length === 0) {
+    alert("No pinned questions yet.");
+    return;
+  }
+
+  questionOrder = pinnedQuestions.slice();
+  currentIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  wrongAnswersLog.length = 0;
+
+  hideOverlay();
+  renderQuestion(currentIndex);
+});
+
+// ✅ Attach pin button
+pinBtn.addEventListener("click", () => {
+  pinQuestion(currentIndex);
+});
+
+
+
 // ✅ Render a question
 function renderQuestion(index) {
   const actualIndex = questionOrder[index];
@@ -209,6 +270,7 @@ function renderQuestion(index) {
       scoreEl.textContent = `✅ ${correctCount} / ❎ ${wrongCount}`;
     });
   });
+  pinBtn.style.display = "inline-block";
 }
 
 // ✅ Shuffle helper
